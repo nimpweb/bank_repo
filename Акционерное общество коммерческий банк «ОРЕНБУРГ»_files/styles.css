@@ -1,0 +1,965 @@
+body {
+  font-family: futura-light;
+}
+
+.w-bold {
+  font-weight: bold;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+  font-weight: bold;
+}
+
+.title {
+  font-family: futura-light;
+  /* font-weight: bold; */
+}
+
+.example {
+  border: 2px solid red;
+  color: red;
+  padding: 20px;
+}
+
+.visual-editor__tag-div {
+  color: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.visual-editor__link, small.chain-path>a {
+  color: #1192c2;
+  transition: 0.5s ease-in-out all;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.visual-editor__link:visited, small.chain-path>a:visited {
+  color: #1192c2;
+}
+
+.visual-editor__link:hover, small.chain-path>a:hover {
+  color: #cc0000;
+  text-decoration: none;
+}
+
+a.visual-editor__link {
+  color: #1192c2;
+  transition: 0.5s ease-in-out all;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a.visual-editor__link:visited {
+  color: #1192c2;
+}
+
+a.visual-editor__link:hover {
+  color: #cc0000 !important;
+  text-decoration: none;
+}
+
+#file_dialog * {
+  font-size: 12px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.font-family--roboto *,
+span.font-family--roboto,
+.font-family--roboto {
+  font-family: roboto !important;
+}
+
+ul.condi-list2 {
+  list-style: none;
+  padding: 0;
+  font-size: 1.1rem;
+  font-family: futura-light !important;
+}
+
+ul.condi-list2 li {
+  margin-top: 1rem;
+  line-height: 1.4;
+  color: #000;
+  font-family: futura-light !important;
+}
+
+ul.condi-list2 li span {
+  color: #0078bf;
+  font-family: futura-light !important;
+}
+
+.font-family--futura-light *,
+span.font-family--futura-light {
+  font-family: futura-light !important;
+}
+
+.hr-top {
+  height: 4px;
+  border-style: solid;
+  border-color: #007fbd;
+  border-width: 4px 0 0 0;
+}
+
+.hr-top--height-2px {
+  height: 2px;
+  border-style: solid;
+  border-color: #007fbd;
+  border-width: 2px 0 0 0;
+}
+
+.hr-white--height-2px {
+  height: 2px;
+  border-style: solid;
+  border-color: #fff;
+  border-width: 2px 0 0 0;
+}
+
+.hr-white--height-1px {
+  height: 1px;
+  border-style: solid;
+  border-color: #fff;
+  border-width: 1px 0 0 0;
+}
+
+.hr-blue--height-2px {
+  height: 2px;
+  border-style: solid;
+  border-color: #007fbd;
+  border-width: 2px 0 0 0;
+}
+
+.hr-red--height-2px {
+  height: 2px;
+  border-style: solid;
+  border-color: #f1b0b7;
+  border-width: 2px 0 0 0;
+}
+
+.hr-bottom {
+  display: block;
+  content: '';
+  height: 4px;
+  border-style: solid;
+  border-color: #007fbd;
+  border-width: 0 0 4px 0;
+}
+
+.height--1px {
+  height: 1px !important;
+}
+
+.height--2px {
+  height: 2px !important;
+}
+
+.height--3px {
+  height: 3px !important;
+}
+
+.hasError {
+  border-bottom: #cc0000 2px solid !important;
+}
+
+.hasError-box {
+  box-shadow: 0 0 10px #cc0000;
+}
+
+.hasSuccess-box {
+  box-shadow: 0 0 10px #00cc00;
+}
+
+.blok__form-box--border-bottom {
+  border-bottom: 4px solid #007fbe;
+  border-collapse: collapse;
+}
+
+.block__form-box--border-bottom {
+  border-bottom: 4px solid #007fbe;
+  border-collapse: collapse;
+}
+
+.block__form-box--border-top {
+  border-top: 4px solid #007fbe;
+  border-collapse: collapse;
+}
+
+.blok__form-box--shadow {
+  box-shadow: 0 0 10px #007fbe;
+}
+
+.block__form-box--shadow {
+  box-shadow: 0 0 10px #007fbe;
+}
+
+.paragraph {
+  font-size: 1.1rem;
+  line-height: 1.25rem;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 0.3rem;
+}
+
+
+
+tr.spaceUnder>td, tr.spaceUnder>th {
+  padding: 1em;
+}
+
+/* модальные окна начало */
+.scroll-on {
+  overflow: auto !important;
+}
+
+.modal-content-height {
+  height: 92vh;
+  overflow-y: auto;
+}
+
+.modal-content-height--70vh {
+  height: 70vh;
+  overflow-y: auto;
+  border-radius: 0 !important;
+}
+
+.modal-content-height--50vh {
+  height: 50vh;
+  overflow-y: auto;
+  border-radius: 0 !important;
+}
+
+/*  Chrome/Edge/Safari begin */
+.modal-content::-webkit-scrollbar,
+#askQuestionDocs-description::-webkit-scrollbar,
+#messageText::-webkit-scrollbar {
+  width: 7px !important;
+  /* ширина scrollbar */
+}
+
+.modal-content::-webkit-scrollbar-track,
+#askQuestionDocs-description::-webkit-scrollbar-track,
+#messageText::-webkit-scrollbar-track {
+  background: #dbf0fc;
+  /* цвет дорожки */
+}
+
+.modal-content::-webkit-scrollbar-thumb,
+#askQuestionDocs-description::-webkit-scrollbar-thumb,
+#messageText::-webkit-scrollbar-thumb {
+  background-color: #007fbd;
+  /* цвет плашки */
+  border-radius: 10px;
+  /* закругления плашки */
+  /* border: 3px solid #dbf0fc; */
+  /* padding вокруг плашки */
+}
+
+/* Chrome/Edge/Safari end */
+
+/* Firefox begin */
+
+#messageText {
+  max-height: 260px;
+}
+
+#askQuestionDocs-description,
+#messageText {
+  scrollbar-width: thin;
+  /* "auto" или "thin"  */
+  scrollbar-color: #007fbd #dbf0fc;
+  /* плашка скролла и дорожка */
+
+  /* закругления плашки */
+}
+
+.modal-content {
+  scrollbar-width: thin;
+  /* "auto" или "thin"  */
+  scrollbar-color: #007fbd #dbf0fc;
+  /* плашка скролла и дорожка */
+  /* border-radius: 20px; */
+  /* закругления плашки */
+}
+
+/* Firefox end */
+
+.common-modal-window.modal .card-block {
+  padding: 40px 80px;
+  background-color: #fff;
+  margin-bottom: 0;
+}
+
+.common-modal-window.modal .card-block .common-modal-window-title {
+  font-size: 48px;
+  padding: 0;
+  font-family: inherit;
+  line-height: 100%;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.common-modal-window.modal .card-block .common-modal-window-text {
+  font-size: 24px;
+  font-family: inherit;
+  line-height: 100%;
+}
+
+.links--fs-1 {
+  font-size: 1rem;
+}
+
+.links--fs-2 {
+  font-size: 1.2rem;
+}
+
+.links--fs-adaptive-2,
+.links--fs-adaptive-2 * {
+  /* font-weight: bold; */
+  font-size: 1.5rem;
+  line-height: 1.3em;
+}
+
+.links--fs-3 {
+  font-size: 1.3rem;
+}
+
+.links--fs-4 {
+  font-size: 1.4rem;
+}
+
+.links--fs-5 {
+  font-size: 1.5rem;
+}
+
+.links--fs-2rem {
+  font-size: 2rem;
+}
+
+.links--fs-h-adaptive-1 {
+  font-size: 1.75rem;
+}
+
+.hide-block {
+  display: none !important;
+}
+
+.hidden-block {
+  visibility: hidden !important;
+}
+
+.text-color--black {
+  color: #222222 !important;
+}
+
+#tariffsForBusinessModal.modal .card-block,
+#tariffsForIndividualsModal.modal .card-block {
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+
+
+.deposit-header__subtitle {
+  color: #007FBD;
+  font-size: 3.4rem;
+}
+
+.deposit-header__subtitle p {
+  margin-bottom: 0 !important;
+}
+
+.itable * {
+  font-size: 1.2em;
+  line-height: 1.2em;
+}
+
+@media (max-width: 1200px) {
+
+  #tariffsForBusinessModal.modal .card-block,
+  #tariffsForIndividualsModal.modal .card-block {
+    padding-left: 3rem !important;
+    padding-right: 3rem !important;
+  }
+
+  .itable * {
+    font-size: 1.2em;
+    line-height: 1.2em;
+  }
+}
+
+/* media begin */
+@media (max-width: 940px) {
+  .common-modal-window.modal .card-block {
+    padding: 40px;
+  }
+
+  .common-modal-window.modal .card-block .common-modal-window-title {
+    font-size: 42px;
+  }
+
+  .links--fs-adaptive-2,
+  .links--fs-adaptive-2 * {
+    font-size: 1.2rem !important;
+  }
+
+  .links--fs-h-adaptive-1 {
+    font-size: 1.75rem;
+  }
+
+  #tariffsForBusinessModal.modal .card-block,
+  #tariffsForIndividualsModal.modal .card-block {
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+  }
+
+  .itable * {
+    font-size: 1em;
+    line-height: 1em;
+  }
+}
+
+@media (max-width: 783px) {
+  .depo_table * , .depo_table_old * {
+    font-size: 0.9em;
+  }
+
+  .common-modal-window.modal .card-block .common-modal-window-title {
+    font-size: 36px;
+  }
+
+  .common-modal-window.modal .card-block .common-modal-window-text {
+    font-size: 18px;
+  }
+
+  .accordion__title * {
+    font-size: 2rem !important;
+  }
+
+  .article__content * {
+    font-size: 1rem !important;
+  }
+
+  .links--fs-adaptive-2,
+  .links--fs-adaptive-2 * {
+    font-size: 1.1rem !important;
+  }
+
+  .links--fs-h-adaptive-1 {
+    font-size: 1.5rem;
+  }
+
+  #tariffsForBusinessModal.modal .card-block,
+  #tariffsForIndividualsModal.modal .card-block {
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+  }
+
+  .deposit-header__subtitle {
+    font-size: 2rem !important;
+  }
+
+  .paragraph .font-size--1_5rem {
+    font-size: 1rem !important;
+    line-height: 1.2rem !important;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .common-modal-window.modal .card-block {
+    padding: 17px;
+  }
+
+  .currency--font-size {
+    font-size: 0.8em;
+  }
+
+  #tariffsForBusinessModal.modal .card-block,
+  #tariffsForIndividualsModal.modal .card-block {
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+  }
+}
+
+
+
+@media screen and (max-width: 650px) {
+  .itable * {
+    font-size: 0.9em;
+  }
+
+  .depo_table * , .depo_table_old * {
+    font-size: 0.8em;
+  }
+
+  .accordion__title * {
+    font-size: 1.5rem !important;
+  }
+
+  .links--fs-adaptive-2,
+  .links--fs-adaptive-2 * {
+    font-size: 1rem !important;
+    line-height: 1.1rem !important;
+  }
+
+  .links--fs-h-adaptive-1 {
+    font-size: 1.2rem;
+  }
+  
+  .credit-page-program .credit .credit-program-btns .credit__tab_btn {
+    font-size: 0.85rem !important;
+  }
+
+  #player {
+    width: 100% !important;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .depo_table * , .depo_table_old * {
+    font-size: 0.75em;
+  }
+
+  .currency--font-size {
+    font-size: 0.6em;
+  }
+
+  .accordion__title * {
+    font-size: 1.4rem !important;
+  }
+
+  .links--fs-adaptive-2,
+  .links--fs-adaptive-2 * {
+    font-size: 1rem !important;
+    line-height: 1.1rem !important;
+  }
+
+  #tariffsForBusinessModal.modal .card-block,
+  #tariffsForIndividualsModal.modal .card-block {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  .deposit-header__subtitle {
+    font-size: 1.4rem !important;
+  }
+}
+
+@media screen and (max-width: 530px) {
+  .depo_table * , .depo_table_old * {
+    font-size: 0.7em;
+  }
+
+  .itable * {
+    font-size: 0.8em;
+  }
+
+  .accordion__title * {
+    font-size: 1.2rem !important;
+  }
+
+  .links--fs-adaptive-2,
+  .links--fs-adaptive-2 * {
+    font-size: 1rem !important;
+    line-height: 1.1rem !important;
+  }
+
+  #tariffsForBusinessModal.modal .card-block,
+  #tariffsForIndividualsModal.modal .card-block {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  .paragraph .font-size--1_5rem {
+    font-size: 1rem !important;
+    line-height: 1.2rem !important;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .depo_table * , .depo_table_old * {
+    font-size: 0.7em;
+  }
+
+  .common-modal-window.modal .card-block .common-modal-window-title {
+    font-size: 32px;
+  }
+
+  /* .accordion__title * {
+    font-size: 1rem !important;
+  } */
+
+  .links--fs-adaptive-2,
+  .links--fs-adaptive-2 * {
+    font-size: 1rem !important;
+    line-height: 1.1rem !important;
+  }
+
+  /* .slick-dots {
+    top: 210px;
+  } */
+
+  #tariffsForBusinessModal.modal .card-block,
+  #tariffsForIndividualsModal.modal .card-block {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+}
+
+@media screen and (max-width: 400px) {
+
+  .links--fs-adaptive-2,
+  .links--fs-adaptive-2 * {
+    font-size: 1rem !important;
+    line-height: 1.1rem !important;
+  }
+
+  #tariffsForBusinessModal.modal .card-block,
+  #tariffsForIndividualsModal.modal .card-block {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+}
+
+@media screen and (max-width: 350px) {
+
+  .links--fs-adaptive-2,
+  .links--fs-adaptive-2 * {
+    font-size: 1rem !important;
+    line-height: 1.1rem !important;
+  }
+
+  #tariffsForBusinessModal.modal .card-block,
+  #tariffsForIndividualsModal.modal .card-block {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+}
+
+/* media end */
+
+.slick-dots {
+  bottom: 30px !important;
+}
+
+/* модальные окна конец */
+
+.font-size--1rem {
+  font-size: 1rem !important;
+  line-height: 1.2rem !important;
+}
+
+.font-size--1_5rem {
+  font-size: 1.5rem !important;
+  line-height: 1.5rem !important;
+}
+
+.font-size--1 {
+  font-size: 1em !important;
+  line-height: 1.1em !important;
+}
+
+.font-size--1_1 {
+  font-size: 1.1em !important;
+  line-height: 1.1em !important;
+}
+
+.font-size--1_2 {
+  font-size: 1.2em !important;
+  line-height: 1.2em !important;
+}
+
+.font-size--1_3 {
+  font-size: 1.3em !important;
+  line-height: 1.3em !important;
+}
+
+.font-size--1_4 {
+  font-size: 1.4em !important;
+  line-height: 1.3em !important;
+}
+
+.font-size--1_5 {
+  font-size: 1.5em !important;
+  line-height: 1.5em !important;
+}
+
+.font-size--1_6 {
+  font-size: 1.6em !important;
+  line-height: 1.6em !important;
+}
+
+.font-size--1_7 {
+  font-size: 1.7em !important;
+  line-height: 1.7em !important;
+}
+
+.font-size--1_75 {
+  font-size: 1.75em !important;
+  line-height: 1.75em !important;
+}
+
+.font-size--2 {
+  font-size: 2em !important;
+}
+
+.font-size--2rem {
+  font-size: 2rem !important;
+  line-height: 90% !important;
+}
+
+/* синие кружки в ненумерованном списке начало */
+.blue-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.blue-list li {
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-bottom: 20px;
+  /* position: relative; */
+  /* margin-left: 20px; */
+}
+
+.blue-list li::before {
+  /* position: absolute; */
+  content: '';
+  display: block;
+  background-color: #0078bf !important;
+  min-width: 10px;
+  max-width: 10px;
+  max-height: 10px;
+  min-height: 10px;
+  border-radius: 50%;
+  margin-right: 12px;
+  margin-top: 4px;
+}
+
+.blue-text {
+  color: #007fbd !important;
+}
+
+.red-text {
+  color: #cc0000 !important;
+}
+
+
+/* синие кружки в ненумерованном списке конец */
+
+ul.dashed {
+  list-style-type: none;
+}
+ul.dashed > li {
+  text-indent: -5px;
+}
+ul.dashed > li:before {
+  content: "— ";
+  text-indent: -5px;
+}
+
+/* placeholder начало */
+.form-control::-webkit-input-placeholder {
+  color: #565F67 !important;
+  opacity: 1;
+}
+
+.form-control::-moz-placeholder {
+  color: #565F67 !important;
+  opacity: 1;
+}
+
+.form-control:-ms-input-placeholder {
+  color: #565F67 !important;
+  opacity: 1;
+}
+
+.form-control::-ms-input-placeholder {
+  color: #565F67 !important;
+  opacity: 1;
+}
+
+.form-control::placeholder {
+  color: #565F67 !important;
+  opacity: 1;
+}
+
+::-webkit-input-placeholder {
+  color: #565F67 !important;
+}
+
+::-moz-placeholder {
+  color: #565F67 !important;
+}
+
+:-ms-input-placeholder {
+  color: #565F67 !important;
+}
+
+::-ms-input-placeholder {
+  color: #565F67 !important;
+}
+
+::placeholder {
+  color: #565F67 !important;
+}
+
+/* placeholder конец */
+
+a.card2cardButton {
+  font-weight: 900px;
+  text-transform: uppercase;
+  font-size: 14pt !important;
+  color: #fff;
+  text-decoration: none;
+  padding: 1.17em 0.17em calc(1.17em + 7px);
+  border-radius: 5px;
+  background: #287eb7;
+  box-shadow: 0 -7px #285ea7 inset;
+  transition: 0.2s;
+  display: block;
+  text-align: center;
+  margin: 0px -20px 0px 0px;
+}
+
+a.card2cardButton:hover {
+  background: #289ed7;
+  box-shadow: 0 -7px #287eb7 inset;
+  color: #fff;
+}
+
+a.card2cardButton:visited {
+  color: #fff;
+}
+
+.blue-btn {
+  font-weight: 900px;
+  /* text-transform: uppercase; */
+  /* font-size: 14pt !important; */
+  color: #fff;
+  text-decoration: none;
+  /* padding: 1.17em 0.17em calc(1.17em + 7px); */
+  padding: 0.6em;
+  padding-left: 1.5em !important;
+  padding-right: 1.5em !important;
+  border-radius: 5px;
+  background: #287eb7;
+  box-shadow: 0 -7px #285ea7 inset;
+  transition: 0.2s;
+  display: block;
+  text-align: center;
+  /* margin: 0px -20px 0px 0px; */
+  margin: 0;
+  cursor: pointer;
+  border: 0;
+}
+
+.blue-btn:hover {
+  background: #289ed7;
+  box-shadow: 0 -7px #287eb7 inset;
+  color: #fff;
+}
+
+.deposits .deposits__inner .deposit__info-description .deposit__info-description_title {
+  font-family: futura-light!important;
+  font-weight: bold;
+}
+
+.deposits .deposits__inner .deposit__online .deposit__online-text {
+  font-family: futura-light!important;
+  font-weight: bold;
+}
+
+.deposits .deposits__inner .deposit__info-title {
+  font-family: futura-light!important;
+  font-weight: bold;
+}
+
+.deposits .deposits__inner .deposit__info-item .big {
+  font-family: futura-light!important;
+  font-weight: bold;
+}
+
+.deposits .deposits__inner .deposit__info-item .medium {
+  font-family: futura-light!important;
+  font-weight: bold;
+}
+
+.deposits .deposits__inner .deposit__title {
+  font-family: futura-light!important;
+  font-weight: bold;
+}
+
+.intro .intro__inner .intro__title {
+  font-family: futura-light!important;
+  font-weight: bold;
+}
+
+.intro .intro__inner .intro__content .intro__left .intro__nav-link-wrapper .intro__nav-link {
+  font-family: futura-light!important;
+  font-weight: bold;
+}
+
+.deposits.revolvingCredit .deposits__inner .revolvingCredit__subtitle {
+  font-family: futura-light!important;
+  font-weight: bold;
+}
+
+.futura {
+  font-family: futura-light;
+  font-weight: bold;
+}
+
+.deposits.revolvingCredit .deposits__inner .revolvingCredit__table .revolvingCredit__table-item .revolvingCredit__table-description .big {
+  font-family: futura-light;
+  font-weight: bold;
+}
+
+.rubl {
+  font-family: futura-light;
+  font-weight: bold;
+}
+
+.deposits.revolvingCredit .deposits__inner .revolvingCredit__table .revolvingCredit__table-item .revolvingCredit__table-title {
+  font-family: futura-light;
+  font-weight: bold;
+}
+
+.overdraftCreit__conditions .overdraftCreit__conditions-item .overdraftCreit__conditions-text .blue {
+  font-family: futura-light;
+  font-weight: bold;
+}
+
+.creditForSmallBusiness__info .creditForSmallBusiness__info-item .blue {
+  font-family: futura-light;
+  font-weight: bold;
+}
+
+.creditForSmallBusiness__info .creditForSmallBusiness__info-item .big {
+  font-family: futura-light;
+  font-weight: bold;
+}
+
+.deposits .deposits__inner .deposits__btns a.btn-light-postbanner {
+  font-family: futura-light;
+  font-weight: bold;
+}
+
+#financialCommissionerServiceModal.modal .card-block .ipoteka-title {
+  font-family: futura-light;
+  font-weight: bold;
+}
+
+.ipoteka-inf .methods_title {
+  font-family: futura-light;
+  font-weight: bold;
+}
+
+.offers .offers__inner .mainBtns a {
+  font-family: futura-light;
+  font-weight: bold;
+}
+
+.fw-bold {
+  font-weight: bold !important;
+}

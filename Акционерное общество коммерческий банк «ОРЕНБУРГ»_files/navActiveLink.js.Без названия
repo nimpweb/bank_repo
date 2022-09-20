@@ -1,0 +1,68 @@
+let lastActiveLink = "#link-checkboxes__nav";
+let lastActiveLocation = "#link-orenburg__nav";
+
+
+$(".link-orenburg").click((elem) => {
+    $(lastActiveLocation).removeClass("active");
+
+    const visibleBlockClassName = $(`#${elem.target.id}`).attr('class');
+    $(`#${visibleBlockClassName}`).removeClass('d-none');
+
+    if (lastActiveLocation !== `#${elem.target.id}`) $(lastActiveLocation.substring(0, lastActiveLocation.length - 5)).addClass('d-none');
+
+    lastActiveLocation = `#${elem.target.id}`;
+});
+
+$(".offices-intro__nav div").click((elem) => {
+    $(lastActiveLocation).removeClass("active");
+
+    const visibleBlockClassName = $(`#${elem.target.id}`).attr('class');
+
+    if (elem.target.id == 'link-orenburg__nav') {
+        $('#address_text').val('');
+        showAddress();
+    } else {
+        
+        $('#address_text').val($('#'+elem.target.id).text());
+        showAddress();
+    }
+
+    // console.log(elem.target.id);
+    // console.log($('#'+elem.target.id).text());
+
+
+
+    $(`#${visibleBlockClassName}`).removeClass('d-none');
+
+    $('#activeLocation').html($(`#${elem.target.id}`).html());
+    $('#ac-0').prop('checked', false);
+    $('.intro.offices .intro__inner .intro__right').removeClass('mt-0')
+
+    if (lastActiveLocation !== `#${elem.target.id}`) $(lastActiveLocation.substring(0, lastActiveLocation.length - 5)).addClass('d-none');
+
+    lastActiveLocation = `#${elem.target.id}`;
+    
+});
+
+$(".offices__nav-links div").click((elem) => {
+    $(lastActiveLink).removeClass("active");
+
+    const visibleBlockClassName = $(`#${elem.target.id}`).attr('class');
+    $(`#${visibleBlockClassName}`).removeClass('d-none');
+
+    // скрытие выпадающих списков
+    if (`#${elem.target.id}` !== '#link-checkboxes__nav') $('#offices__main-content').addClass('d-none');
+    else $('#offices__main-content').removeClass('d-none'); 
+
+    if (lastActiveLink !== `#${elem.target.id}`) $(lastActiveLink.substring(0, lastActiveLink.length - 5)).addClass('d-none');
+
+    lastActiveLink = `#${elem.target.id}`;
+    $(lastActiveLink).toggleClass('active')
+    
+});
+
+
+$("#ac-0").on('click',function(){
+    if ($(this).is(':checked')) $('.intro.offices .intro__inner .intro__right').addClass('mt-0')
+    else  $('.intro.offices .intro__inner .intro__right').removeClass('mt-0')
+});

@@ -1,0 +1,3567 @@
+/**
+ * максимальная длина электронной почты клиента
+ */
+const CREDIT_ONLINE_MAX_LENGTH_EMAIL = 255;
+
+/**
+ * максимальная длина комментария к заявке
+ */
+const CREDIT_ONLINE_MAX_LENGTH_COMMENT_MESSAGE = 250;
+
+/**
+ * минимальная сумма кредита
+ */
+const MIN_AMOUNT = 27000;
+
+/**
+ * максимальная сумма кредита
+ */
+const MAX_AMOUNT = 10000000;
+
+/**
+ * минимальный срок кредита
+ */
+const MIN_MATURITY = 6;
+
+/**
+ * максимальный срок кредита
+ */
+const MAX_MATURITY = 120;
+
+/**
+ * url-адрес сервера для обработки заявки
+ */
+const creditOnline__uploadURL = '/data_rates/credreq.php';
+
+/**
+ * токен
+ */
+const creditOnline__token = '#credit-online__token';
+
+/**
+ * токен уже существует
+ */
+const creditOnline__tokenExists = '#credit-online__token-exists';
+
+/**
+ * невалидный токен
+ */
+const creditOnline__tokenInvalid = '#credit-online__token-invalid';
+
+/**
+ * селектор формы
+ */
+const creditOnline__form = '.credit-online';
+
+/**
+ * идентификатор цели кредита
+ */
+const creditOnline__purposeOfTheCredit = '#credit-online__purposeOfTheCredit';
+
+/**
+ * идентификатор суммы кредита
+ */
+const creditOnline__amount = '#credit-online__amount';
+
+/**
+ * идентификатор ссудной задолженности
+ */
+const creditOnline__balanceDebt = '#credit-online__balanceDebt';
+
+/**
+ * идентификатор "хочу взять дополнительную сумму на другие цели"
+ */
+const creditOnline__isAdditionalAmount = '#credit-online__isAdditionalAmount';
+
+/**
+ * идентификатор суммы на другие цели
+ */
+const creditOnline__additionalAmount = '#credit-online__additionalAmount';
+
+/**
+ * идентификатор срока кредита
+ */
+const creditOnline__maturity = '#credit-online__maturity';
+
+/**
+ * идентификатор номера телефона
+ */
+const creditOnline__phone = '#credit-online__phone';
+
+/**
+ * идентификатор типа дополнительного номера телефона
+ */
+const creditOnline__additionalPhoneType = '#credit-online__additionalPhoneType';
+
+/**
+ * идентификатор типа дополнительного номера телефона
+ */
+const creditOnline__additionalPhoneValue =
+  '#credit-online__additionalPhoneValue';
+
+/**
+ * идентификатор типа дополнительного номера телефона
+ */
+const creditOnline__email = '#credit-online__email';
+
+/**
+ * идентификатор семейного положения
+ */
+const creditOnline__familyState = '#credit-online__familyState';
+
+/**
+ * идентификатор кол-ва детей младше 18 лет
+ */
+const creditOnline__numberOfChildrenUnder18 =
+  '#credit-online__numberOfChildrenUnder18';
+
+/**
+ * идентификатор суммы дохода
+ */
+const creditOnline__amountOfIncome = '#credit-online__amountOfIncome';
+
+/**
+ * идентификатор статуса занятости
+ */
+const creditOnline__busyStatus = '#credit-online__busyStatus';
+
+/**
+ * идентификатор чекбокса получения зарплаты/пенсии на счёт в банке
+ */
+const creditOnline__isSalaryInBank = '#credit-online__isSalaryInBank';
+
+/**
+ * идентификатор наименования организации
+ */
+const creditOnline__nameOfTheOrganization =
+  '#credit-online__nameOfTheOrganization';
+
+/**
+ * идентификатор адреса организации
+ */
+const creditOnline__employersAddress = '#credit-online__employersAddress';
+
+/**
+ * идентификатор ИНН организации
+ */
+const creditOnline__employersINN = '#credit-online__employersINN';
+
+/**
+ * идентификатор стажа на текущем месте работы
+ */
+const creditOnline__currentWorkExperience =
+  '#credit-online__currentWorkExperience';
+
+/**
+ * идентификатор офиса для получения кредита
+ */
+const creditOnline__officeForReceivingCredit =
+  '#credit-online__officeForReceivingCredit';
+
+/**
+ * идентификатор времени когда можно связаться с клиентом
+ */
+const creditOnline__theTimeWhenYouCanContactTheClient =
+  '#credit-online__theTimeWhenYouCanContactTheClient';
+
+/**
+ * идентификатор комментария клиента
+ */
+const creditOnline__commentMessage = '#credit-online__commentMessage';
+
+/**
+ * идентификатор согласия на передачу данных
+ */
+const creditOnline__isConsentToTheProcessingOfPersonalData =
+  '#credit-online__isConsentToTheProcessingOfPersonalData';
+
+/**
+ * идентификатор согласия на запрос в БКИ
+ */
+const creditOnline__isConsentToTheRequestOfTheBCH =
+  '#credit-online__isConsentToTheRequestOfTheBCH';
+
+/**
+ * идентификатор согласия на предоставление рекламного материала
+ */
+const creditOnline__isConsentToAdvertisingMaterial =
+  '#credit-online__isConsentToAdvertisingMaterial';
+
+/**
+ * идентификатор кнопки "Отправить"
+ */
+const creditOnline__sendBtn = '#credit-online__sendBtn';
+
+/**
+ * имя класса-ошибки
+ */
+const creditOnline__errorBox = 'hasError-box';
+
+/**
+ * имя класса-успеха
+ */
+const creditOnline__successBox = 'hasSuccess-box2';
+
+/**
+ * имя поля номера телефона для маски ввода
+ */
+const creditOnline__phoneName = 'credit-online__phone';
+
+/**
+ * значение дополнительно номера телефона
+ */
+const creditOnline__additionalPhoneValueName =
+  'credit-online__additionalPhoneValue';
+
+/**
+ * Сообщение ответ сервера
+ */
+const creditOnline__resultMessageId = '#credit-online__resultMessageId';
+
+/**
+ * статус занятости "работающий"
+ */
+const creditOnline__busyStatusWorker = '.credit-online__busy-status-worker';
+
+/**
+ * css-класс успех
+ */
+const creditOnline__alertSuccess = 'alert-success';
+
+/**
+ * css-класс неудача
+ */
+const creditOnline__alertDanger = 'alert-danger';
+
+/**
+ * css-класс display: none
+ */
+const creditOnline__displayNone = 'd-none';
+
+/**
+ * сообщения
+ */
+const creditOnline__messages = {
+  purpose: {
+    name: '<b>Цель кредита</b>',
+    invalid: ' не указана',
+    success: '',
+  },
+  familyState: {
+    name: '<b>Семейное положение</b>',
+    invalid: ' не указано',
+    success: '',
+  },
+  numberOfChildrenUnder18: {
+    name: '<b>Количество детей младше 18 лет</b>',
+    invalid: ' не указано',
+    success: '',
+  },
+  busyStatus: {
+    name: '<b>Статус занятости</b>',
+    invalid: ' не указан',
+    success: '',
+  },
+  officeForReceivingCredit: {
+    name: '<b>Офис для получения кредита</b>',
+    invalid: ' не указан',
+    success: '',
+  },
+  theTimeWhenYouCanContactTheClient: {
+    name: '<b>Время когда можно связаться с клиентом</b>',
+    invalid: ' не указано',
+    success: '',
+  },
+  amount: {
+    name: '<b>Сумма кредита</b>',
+    invalid: ' задана неверно:',
+    success: '',
+    limits: {
+      min: {
+        textStart: 'Мин. сумма: ',
+        value: '<b>' + creditOnline__sdf_FTS(+MIN_AMOUNT, 0, ' ') + '</b>',
+        textEnd: '<b> ₽</b>',
+      },
+      max: {
+        textStart: 'Макс. сумма: ',
+        value: '<b>' + creditOnline__sdf_FTS(+MAX_AMOUNT, 0, ' ') + '</b>',
+        textEnd: '<b> ₽</b>',
+      },
+    },
+  },
+  balanceDebt: {
+    name: '<b>Остаток ссудной задолженности (ОСЗ)</b>',
+    invalid: ' задан неверно:',
+    success: '',
+    extra: '<b>СУММА КРЕДИТА = ОСЗ + ДОП.СУММА<b>',
+    info: '<i>При необходимости вы&nbsp;можете взять дополнительную сумму при выборе цели &laquo;Рефинансирование действующих кредитов (в&nbsp;т.ч. кредитов АО&nbsp;&laquo;БАНК ОРЕНБУРГ&raquo;) и&nbsp;дополнительная сумма на&nbsp;другие цели.</i>',
+    limits: {
+      min: {
+        textStart: 'Мин. сумма: ',
+        value: '<b>' + creditOnline__sdf_FTS(+MIN_AMOUNT, 0, ' ') + '</b>',
+        textEnd: '<b> ₽</b>',
+      },
+      max: {
+        textStart: 'Макс. сумма: ',
+        value: '<b>' + creditOnline__sdf_FTS(+MAX_AMOUNT, 0, ' ') + '</b>',
+        textEnd: '<b> ₽</b>',
+      },
+    },
+  },
+  additionalAmount: {
+    name: '<b>Дополнительная сумма кредита</b>',
+    invalid: ' задана неверно:',
+    success: '',
+    limits: {
+      min: {
+        textStart: 'Мин. сумма: ',
+        value: '<b>' + creditOnline__sdf_FTS(+MIN_AMOUNT, 0, ' ') + '</b>',
+        textEnd: '<b> ₽</b>',
+      },
+      max: {
+        textStart: 'Макс. сумма: ',
+        value: '<b>' + creditOnline__sdf_FTS(+MAX_AMOUNT, 0, ' ') + '</b>',
+        textEnd: '<b> ₽</b>',
+      },
+    },
+  },
+  maturity: {
+    name: '<b>Срок кредита</b>',
+    invalid: ' задан неверно:',
+    success: '',
+    limits: {
+      min: {
+        textStart: 'Мин. срок: ',
+        value: '<b>' + creditOnline__sdf_FTS(+MIN_MATURITY, 0, ' ') + '</b>',
+        textEnd: '<b> мес.</b>',
+      },
+      max: {
+        textStart: 'Макс. срок: ',
+        value: '<b>' + creditOnline__sdf_FTS(+MAX_MATURITY, 0, ' ') + '</b>',
+        textEnd: '<b> мес.</b>',
+      },
+    },
+  },
+  divider: {
+    line: '<hr class="hr-top--height-2px w-100">',
+  },
+};
+
+/**
+ * направления для подсказок
+ */
+const creditOnline__direction = {
+  /**
+   * Направление север
+   */
+  north: 'n',
+
+  /**
+   * Направление восток
+   */
+  east: 'e',
+
+  /**
+   * Направление юг
+   */
+  south: 's',
+
+  /**
+   * Направление запад
+   */
+  west: 'w',
+
+  /**
+   * Направление северо-запад
+   */
+  northWest: 'nw',
+
+  /**
+   * Направление северо-восток
+   */
+  northEast: 'ne',
+
+  /**
+   * Направление юго-запад
+   */
+  southWest: 'sw',
+
+  /**
+   * Направление юго-восток
+   */
+  southEast: 'se',
+
+  /**
+   * Направление северо-запад (альтернатива)
+   */
+  northWestAlt: 'nw-alt',
+
+  /**
+   * Направление северо-восток (альтернатива)
+   */
+  northEastAlt: 'ne-alt',
+
+  /**
+   * Направление юго-запад (альтернатива)
+   */
+  southWestAlt: 'sw-alt',
+
+  /**
+   * Направление юго-восток (альтернатива)
+   */
+  southEastAlt: 'se-alt',
+};
+
+var creditOnline__purposeOfTheCreditData = [];
+
+var creditOnline__familyStateData = [];
+
+var creditOnline__numberOfChildrenUnder18Data = [];
+
+var creditOnline__additionalPhoneTypeData = [];
+
+var creditOnline__busyStatusData = [];
+
+var creditOnline__currentWorkExperienceData = [];
+
+var creditOnline__officeForReceivingCreditData = [];
+
+var creditOnline__theTimeWhenYouCanContactTheClientData = [];
+
+var creditOnline;
+var creditOnline__err = 0;
+var creditOnline__errFile = 0;
+
+/**
+ * Метод осуществляет привязку данных
+ */
+function creditOnline__dataBuinding() {
+  creditOnline__purposeOfTheCreditData = [
+    {
+      text: 'Ремонт',
+      value: 1,
+    },
+    {
+      text: 'Покупка недвижимости',
+      value: 2,
+    },
+    {
+      text: 'Покупка автомобиля',
+      value: 3,
+    },
+    {
+      text: 'Лечение',
+      value: 4,
+    },
+    {
+      text: 'Путешествие',
+      value: 5,
+    },
+    {
+      text: 'Иное',
+      value: 6,
+    },
+    {
+      text: 'Рефинансирование действующих кредитов банков (в т.ч. кредитов АО «БАНК ОРЕНБУРГ»)',
+      value: 7,
+    },
+    {
+      text: 'Рефинансирование действующих кредитов (в т.ч. кредитов АО «БАНК ОРЕНБУРГ») и дополнительная сумма на другие цели',
+      value: 8,
+    },
+  ];
+
+  creditOnline__familyStateData = [
+    {
+      text: 'Холост',
+      value: 'single',
+    },
+    {
+      text: 'В браке',
+      value: 'married',
+    },
+    {
+      text: 'В разводе',
+      value: 'divorced',
+    },
+    {
+      text: 'Гражданский брак',
+      value: 'civilMarriage',
+    },
+  ];
+
+  creditOnline__numberOfChildrenUnder18Data = [
+    {
+      text: '0',
+      value: 0,
+    },
+    {
+      text: '1',
+      value: 1,
+    },
+    {
+      text: '2',
+      value: 2,
+    },
+    {
+      text: '3 и более',
+      value: 3,
+    },
+  ];
+
+  creditOnline__additionalPhoneTypeData = [
+    {
+      text: 'номер родственника',
+      value: 'relative',
+    },
+    {
+      text: 'номер друга',
+      value: 'friend',
+    },
+    {
+      text: 'мой дополнительный номер',
+      value: 'my',
+    },
+  ];
+
+  creditOnline__busyStatusData = [
+    {
+      text: 'работающий',
+      value: 'work',
+    },
+    {
+      text: 'пенсионер',
+      value: 'pens',
+    },
+    {
+      text: 'работающий пенсионер',
+      value: 'workPens',
+    },
+  ];
+
+  creditOnline__currentWorkExperienceData = [
+    {
+      text: 'Стаж менее 6 месяцев',
+      value: 6,
+    },
+    {
+      text: 'Стаж от 6-12 месяцев',
+      value: 12,
+    },
+    {
+      text: 'Стаж от 1-3 лет',
+      value: 24,
+    },
+    {
+      text: 'Стаж свыше 3 лет',
+      value: 36,
+    },
+  ];
+
+  creditOnline__officeForReceivingCreditData = [
+    {
+      text: 'г. Оренбург, ул. Маршала Г. K. Жукова, д. 25',
+      value: '001-23',
+    },
+    {
+      text: 'г. Оренбург, ул. Брестская, д. 5',
+      value: '001-27',
+    },
+    {
+      text: 'г. Оренбург, ул. 8 Марта, д. 35',
+      value: '001-28',
+    },
+    {
+      text: 'г. Оренбург, проспект Гагарина, д. 54/1',
+      value: '001-21',
+    },
+    {
+      text: 'г. Оренбург, ул. Салмышская, д. 48/2',
+      value: '001-29',
+    },
+    {
+      text: 'с. Александровка, ул. Мичурина, д. 22',
+      value: '001-07',
+    },
+    {
+      text: 'с. Беляевка, ул. Советская, д. 61в',
+      value: '001-10',
+    },
+    {
+      text: 'г. Бугуруслан, ул. Революционная, д. 16',
+      value: '001-18',
+    },
+    {
+      text: 'г. Бузулук, ул. Комсомольская, д. 113б',
+      value: '001-01',
+    },
+    {
+      text: 'г. Гай, пр-т Победы, д. 7',
+      value: '001-16',
+    },
+    {
+      text: 'с. Илек, ул. Уральская, д. 61',
+      value: '001-12',
+    },
+    {
+      text: 'с. Кваркено, ул. 1-ая Целинная, д. 20',
+      value: '001-15',
+    },
+    {
+      text: 'г. Медногорск, ул. Советская, д. 22',
+      value: '001-02',
+    },
+    {
+      text: 'п. Первомайский, ул. Советская, д. 37',
+      value: '001-09',
+    },
+    {
+      text: 'п. Переволоцкий, ул. Ленинская, д. 125/1',
+      value: '001-06',
+    },
+    {
+      text: 'с. Плешаново, пр. Гагарина, д. 32',
+      value: '001-05',
+    },
+    {
+      text: 'с. Сакмара, ул. Советская, д. 32',
+      value: '001-03',
+    },
+    {
+      text: 'п. Саракташ, ул. Ленина, д. 29а',
+      value: '001-20',
+    },
+    {
+      text: 'с. Северное, ул. 40 лет Октября, д. 16в',
+      value: '001-11',
+    },
+    {
+      text: 'г. Соль-Илецк, ул. Пушкина, д. 12',
+      value: '001-13',
+    },
+    {
+      text: 'с. Ташла, ул. Молодежная, д. 2',
+      value: '001-19',
+    },
+    {
+      text: 'п. Тюльган, ул. Пионерская, д. 10',
+      value: '001-04',
+    },
+    {
+      text: 'г. Ясный, ул. Ленина, д. 9',
+      value: '001-14',
+    },
+    {
+      text: 'Дополнительный офис АО "БАНК ОРЕНБУРГ" в г. Сорочинске',
+      value: '001-08',
+    },
+    {
+      text: 'Дополнительный офис АО "БАНК ОРЕНБУРГ" в г. Орске',
+      value: '001-17',
+    },
+    {
+      text: 'Дополнительный офис АО "БАНК ОРЕНБУРГ" на Володарского',
+      value: '001-22',
+    },
+    {
+      text: 'Дополнительный офис АО "БАНК ОРЕНБУРГ" на Расковой',
+      value: '001-24',
+    },
+    {
+      text: 'Дополнительный офис АО "БАНК ОРЕНБУРГ" на Пролетарской',
+      value: '001-26',
+    },
+  ];
+
+  creditOnline__theTimeWhenYouCanContactTheClientData = [
+    {
+      text: 'В любое время (с 9:00-19:00)',
+      value: 0,
+    },
+    {
+      text: '9:00-11:00',
+      value: 9,
+    },
+    {
+      text: '11:01-13:00',
+      value: 11,
+    },
+    {
+      text: '13:01-15:00',
+      value: 13,
+    },
+    {
+      text: '15:01-17:00',
+      value: 15,
+    },
+    {
+      text: '17:01-19:00',
+      value: 17,
+    },
+  ];
+}
+
+/**
+ * Метод преобразует строку в число
+ * @param {string} id идентификатор элемента
+ * @returns возвращает число из строки или 0
+ */
+function creditOnline__getIntDataById(id) {
+  let d = $(id).val().replace(/\s+/g, '');
+  try {
+    d = parseInt(d);
+  } catch (error) {
+    d = 0;
+  }
+  return d;
+}
+
+/**
+ * Загрузка данных в селект
+ */
+function creditOnline__dataListLoader() {
+  creditOnline__dataBuinding();
+
+  $(creditOnline__purposeOfTheCredit).ddslick({
+    data: creditOnline__purposeOfTheCreditData,
+    width: '100%',
+    selectText: 'Указать...',
+    onSelected: function (data) {
+      creditOnline.SetPurpose(data.selectedData.value, data.selectedData.text);
+
+      creditOnline__postSelectChecker(
+        creditOnline__purposeOfTheCredit,
+        creditOnline.GetPurposeValue(),
+        creditOnline__errorBox,
+        creditOnline__successBox
+      );
+
+      if (creditOnline.Purpose.Value == 7) {
+        creditOnline__toUnHideTheElement('.credit-online__ref');
+
+        creditOnline__toHideTheElement('.credit-online__isAdditionalAmount');
+        creditOnline__toHideTheElement('.credit-online__additionalAmount');
+        creditOnline.AdditionalAmount = 0;
+        creditOnline.SetIsAdditionalAmount(false);
+
+        return;
+      }
+
+      if (creditOnline.Purpose.Value == 8) {
+        creditOnline__toUnHideTheElement('.credit-online__ref');
+
+        creditOnline__toUnHideTheElement('.credit-online__isAdditionalAmount');
+        if (creditOnline__isCheckById(creditOnline__isAdditionalAmount)) {
+          creditOnline__toUnHideTheElement('.credit-online__additionalAmount');
+          creditOnline.SetIsAdditionalAmount(true);
+          creditOnline.SetAdditionalAmount(
+            creditOnline__getIntDataById(creditOnline__additionalAmount)
+          );
+        }
+        return;
+      }
+
+      creditOnline__toHideTheElement('.credit-online__ref');
+
+      creditOnline__toHideTheElement('.credit-online__isAdditionalAmount');
+      creditOnline__toHideTheElement('.credit-online__additionalAmount');
+
+      // creditOnline__toHideTheElement('.credit-online__busy-status-worker');
+
+      creditOnline.AdditionalAmount = 0;
+      creditOnline.BalanceDebt = 0;
+      creditOnline.SetIsAdditionalAmount(false);
+    },
+  });
+
+  $(creditOnline__familyState).ddslick({
+    data: creditOnline__familyStateData,
+    width: '100%',
+    selectText: 'Указать...',
+    onSelected: function (data) {
+      creditOnline.SetFamilyState(
+        data.selectedData.value,
+        data.selectedData.text
+      );
+
+      creditOnline__postSelectChecker(
+        creditOnline__familyState,
+        creditOnline.GetFamilyStateValue(),
+        creditOnline__errorBox,
+        creditOnline__successBox
+      );
+    },
+  });
+
+  $(creditOnline__numberOfChildrenUnder18).ddslick({
+    data: creditOnline__numberOfChildrenUnder18Data,
+    width: '100%',
+    selectText: 'Указать...',
+    onSelected: function (data) {
+      creditOnline.SetNumberOfChildrenUnder18(
+        data.selectedData.value,
+        data.selectedData.text
+      );
+
+      creditOnline__postSelectChecker(
+        creditOnline__numberOfChildrenUnder18,
+        creditOnline.GetNumberOfChildrenUnder18Value(),
+        creditOnline__errorBox,
+        creditOnline__successBox
+      );
+    },
+  });
+
+  $(creditOnline__additionalPhoneType).ddslick({
+    data: creditOnline__additionalPhoneTypeData,
+    width: '100%',
+    selectText: 'Указать...',
+    onSelected: function (data) {
+      creditOnline.SetAdditionalPhone(
+        // data.selectedData.text,
+        data.selectedData.value,
+        $(creditOnline__additionalPhoneValue).val()
+      );
+      // creditOnline__postSelectChecker(
+      //   creditOnline__additionalPhoneType,
+      //   creditOnline.GetAdditionalPhoneType(),
+      //   creditOnline__errorBox,
+      //   creditOnline__successBox
+      // );
+      creditOnline__toUnHideTheElement('.credit-online__additionalPhoneValue');
+    },
+  });
+
+  $(creditOnline__busyStatus).ddslick({
+    data: creditOnline__busyStatusData,
+    width: '100%',
+    selectText: 'Указать...',
+    onSelected: function (data) {
+      creditOnline.SetBusyStatus(
+        data.selectedData.value,
+        data.selectedData.text
+      );
+      creditOnline__postSelectChecker(
+        creditOnline__busyStatus,
+        creditOnline.GetBusyStatusValue(),
+        creditOnline__errorBox,
+        creditOnline__successBox
+      );
+
+      if (
+        creditOnline.GetBusyStatusValue() == 'work' ||
+        creditOnline.GetBusyStatusValue() == 'workPens'
+      ) {
+        creditOnline__toUnHideTheElement(creditOnline__busyStatusWorker);
+      } else {
+        creditOnline__toHideTheElement(creditOnline__busyStatusWorker);
+
+        $(creditOnline__nameOfTheOrganization).removeClass(
+          creditOnline__errorBox
+        );
+        $(creditOnline__nameOfTheOrganization).removeClass(
+          creditOnline__successBox
+        );
+
+        $(creditOnline__employersAddress).removeClass(creditOnline__errorBox);
+        $(creditOnline__employersAddress).removeClass(creditOnline__successBox);
+
+        $(creditOnline__employersINN).removeClass(creditOnline__errorBox);
+        $(creditOnline__employersINN).removeClass(creditOnline__successBox);
+
+        $(creditOnline__currentWorkExperience).removeClass(
+          creditOnline__errorBox
+        );
+        $(creditOnline__currentWorkExperience).removeClass(
+          creditOnline__successBox
+        );
+      }
+    },
+  });
+
+  $(creditOnline__currentWorkExperience).ddslick({
+    data: creditOnline__currentWorkExperienceData,
+    width: '100%',
+    selectText: 'Указать...',
+    onSelected: function (data) {
+      creditOnline.SetCurrentWorkExperience(
+        data.selectedData.value,
+        data.selectedData.text
+      );
+      if (
+        creditOnline.GetBusyStatusValue() == 'work' ||
+        creditOnline.GetBusyStatusValue() == 'workPens'
+      ) {
+        creditOnline__postSelectChecker(
+          creditOnline__currentWorkExperience,
+          creditOnline.GetCurrentWorkExperienceValue(),
+          creditOnline__errorBox,
+          creditOnline__successBox
+        );
+      } else {
+        $(creditOnline__nameOfTheOrganization).removeClass(
+          creditOnline__errorBox
+        );
+        $(creditOnline__nameOfTheOrganization).removeClass(
+          creditOnline__successBox
+        );
+
+        $(creditOnline__employersAddress).removeClass(creditOnline__errorBox);
+        $(creditOnline__employersAddress).removeClass(creditOnline__successBox);
+
+        $(creditOnline__employersINN).removeClass(creditOnline__errorBox);
+        $(creditOnline__employersINN).removeClass(creditOnline__successBox);
+
+        $(creditOnline__currentWorkExperience).removeClass(
+          creditOnline__errorBox
+        );
+        $(creditOnline__currentWorkExperience).removeClass(
+          creditOnline__successBox
+        );
+      }
+    },
+  });
+
+  $(creditOnline__officeForReceivingCredit).ddslick({
+    data: creditOnline__officeForReceivingCreditData,
+    width: '100%',
+    height: 400,
+    selectText: 'Указать...',
+    onSelected: function (data) {
+      creditOnline.SetOfficeForReceivingCredit(
+        data.selectedData.value,
+        data.selectedData.text
+      );
+      creditOnline__postSelectChecker(
+        creditOnline__officeForReceivingCredit,
+        creditOnline.GetOfficeForReceivingCreditValue(),
+        creditOnline__errorBox,
+        creditOnline__successBox
+      );
+    },
+  });
+
+  $(creditOnline__theTimeWhenYouCanContactTheClient).ddslick({
+    data: creditOnline__theTimeWhenYouCanContactTheClientData,
+    width: '100%',
+    selectText: 'Указать...',
+    onSelected: function (data) {
+      creditOnline.SetTheTimeWhenYouCanContactTheClient(
+        data.selectedData.value,
+        data.selectedData.text
+      );
+      creditOnline__postSelectChecker(
+        creditOnline__theTimeWhenYouCanContactTheClient,
+        creditOnline.GetTheTimeWhenYouCanContactTheClientValue(),
+        creditOnline__errorBox,
+        creditOnline__successBox
+      );
+    },
+  });
+}
+
+/**
+ * Метод проверяет установлен ли флаг у радиокнопки или чекбокса
+ * @param {string} id идентификатор радиокнопки или чекбокса
+ * @returns да - если установлен или нет - в противном случае
+ */
+function creditOnline__isCheckById(id) {
+  if ($(id).prop('checked')) {
+    return true;
+  } else return false;
+}
+
+/**
+ * Метод проверяет видим ли блок/элемент
+ * @param {string} cssClass проверяемый блок/элемент
+ * @returns да - если видим или нет - в противном случае
+ */
+function creditOnline__isVisibleByClass(cssClass) {
+  if (!$(cssClass).hasClass(creditOnline__displayNone)) return true;
+  return false;
+}
+
+/**
+ * Метод скрывает элемент по селектору selector в html разметке
+ * @param {string} selector селектор html-элемента
+ */
+function creditOnline__toHideTheElement(selector) {
+  $(selector).hide();
+}
+
+/**
+ * Метод показывает скрытый элемент по селектору selector в html разметке
+ * @param {string} selector селектор html-элемента
+ */
+function creditOnline__toUnHideTheElement(selector) {
+  $(selector).show();
+}
+
+/**
+ * Класс "Потребительский кредит онлайн"
+ */
+class PotrebCreditOnline {
+  /**
+   * Идентификатор объекта
+   * @type {object}
+   */
+  Id = null;
+
+  /**
+   * 1 Объект "Цель кредита"
+   * {Value} - текущее значение цели кредита
+   * {Text} - текущий текст цели кредита
+   * @type {Value: number, Text: string}
+   */
+  Purpose = { Value: null, Text: '' };
+
+  /**
+   * 2 Сумма кредита
+   * @type {number}
+   */
+  Amount = 0;
+
+  /**
+   * 3 Минимальная сумма кредита
+   * @type {number}
+   */
+  MinAmount = 0;
+
+  /**
+   * 4 Максимальная сумма кредита
+   * @type {number}
+   */
+  MaxAmount = 0;
+
+  /**
+   * 5 Остаток ссудной задолженности по рефининансируемому кредиту
+   * @type {number}
+   */
+  BalanceDebt = 0;
+
+  /**
+   * 6 Хочу взять дополнительную сумму на другие цели
+   * @type {boolean}
+   */
+  IsAdditionalAmount = false;
+
+  /**
+   * 7 Дополнительная сумма кредита
+   * @type {number}
+   */
+  AdditionalAmount = 0;
+
+  /**
+   * 8 Объект "Срок кредита, в месяцах"
+   * {Value} - текущее значение срока кредита
+   * {Text} - текущий текст срока кредита
+   * @type {Value: number, Text: string}
+   */
+  Maturity = { Value: null, Text: '' };
+
+  /**
+   * 9 Номер телефона
+   * @type {string}
+   */
+  Phone = '';
+
+  /**
+   * 10 Дополнительный номер телефона
+   * {Type} - тип номера телефона
+   * {Value} - текущее значение дополнительного номера телефона
+   * @type {Type: string, Value: string}
+   */
+  AdditionalPhone = { Type: null, Value: '' };
+
+  /**
+   * 11 Электронная почта
+   * @type {string}
+   */
+  Email = '';
+
+  /**
+   * 12 Объект "Семейное положение"
+   * {Value} - текущее значение семейного положения
+   * {Text} - текущий текст семейного положения
+   * @type {Value: number, Text: string}
+   */
+  FamilyState = { Value: null, Text: '' };
+
+  /**
+   * 13 Количество детей младше 18 лет
+   * {Value} - текущее значение количества детей младше 18 лет
+   * {Text} - текущий текст количества детей младше 18 лет
+   * @type {Value: number, Text: string}
+   */
+  NumberOfChildrenUnder18 = { Value: null, Text: '' };
+
+  /**
+   * 14 Сумма дохода
+   * @type {number}
+   */
+  AmountOfIncome = 0;
+
+  /**
+   * 15 Получаю зарплату/пенсию на счёт в АО "БАНК ОРЕНБУРГ"
+   * @type {boolean}
+   */
+  IsSalaryInBank = false;
+
+  /**
+   * 16 Статус занятости клиента
+   * {Value} - текущее значение статуса занятости
+   * {Text} - текущий текст статуса занятости
+   * @type {Value: number, Text: string}
+   */
+  BusyStatus = { Value: null, Text: '' };
+
+  /**
+   * 17 Наименование организации
+   * @type {string}
+   */
+  NameOfTheOrganization = '';
+
+  /**
+   * 18 Адрес работадателя
+   * @type {string}
+   */
+  EmployersAddress = '';
+
+  /**
+   * 19 ИНН организации работодателя
+   * @type {string}
+   */
+  EmployersINN = '';
+
+  /**
+   * 20 Стаж на текущем месте работы
+   * {Value} - текущее значение стажа на текущем месте работы
+   * {Text} - текущий текст стажа на текущем месте работы
+   * @type {Value: number, Text: string}
+   */
+  CurrentWorkExperience = { Value: null, Text: '' };
+
+  /**
+   * 21 Офис для получения кредита
+   * {Value} - текущее значение офиса для получения кредита
+   * {Text} - текущий текст офиса для получения кредита
+   * @type {Value: number, Text: string}
+   */
+  OfficeForReceivingCredit = { Value: null, Text: '' };
+
+  /**
+   * 22 Время когда можно связаться с клиентом
+   * {Value} - текущее значение времени когда можно связаться с клиентом
+   * {Text} - текущий текст времени когда можно связаться с клиентом
+   * @type {Value: number, Text: string}
+   */
+  TheTimeWhenYouCanContactTheClient = { Value: null, Text: '' };
+
+  /**
+   * 23 Комментарий к заявке
+   * @type {string}
+   */
+  CommentMessage = '';
+
+  /**
+   * 24 Согласие на обработку персональных данных
+   * @type {boolean}
+   */
+  IsConsentToTheProcessingOfPersonalData = false;
+
+  /** 25 Согласие на запрос в БКИ
+   * @type {boolean}
+   */
+  IsConsentToTheRequestOfTheBCH = false;
+
+  /**
+   * 26 Согласие на рекламный материал
+   * @type {boolean}
+   */
+  IsConsentToAdvertisingMaterial = false;
+
+  /**
+   * 27 Валидация формы кредитной заявки
+   * @type {boolean}
+   */
+  IsValidate = false;
+
+  /**
+   * 28 Идентификатор
+   * @type {string}
+   */
+  Guid = null;
+
+  /**
+   * Метод устанавливает цель кредита
+   * @param {number} newValue новое значение цели кредита
+   * @param {string} newText новый текст цели кредита
+   */
+  SetPurpose(newValue, newText) {
+    this.Purpose.Value = newValue;
+    this.Purpose.Text = newText;
+    return;
+  }
+
+  /**
+   * Метод устанавливает сумму кредита
+   * @param {number} amount новое значение
+   */
+  SetAmount(amount) {
+    if (this.MinAmount <= amount && amount <= this.MaxAmount) {
+      this.Amount = amount;
+    }
+
+    if (amount < this.MinAmount) {
+      this.Amount = this.MinAmount;
+    }
+
+    if (amount > this.MaxAmount) {
+      this.Amount = this.MaxAmount;
+    }
+  }
+
+  /**
+   * Метод устанавливает минимальную сумму кредита
+   * @param {number} minAmount новое значение
+   */
+  SetMinAmount(minAmount) {
+    this.MinAmount = minAmount;
+    return;
+  }
+
+  /**
+   * Метод устанавливает максимальную сумму кредита
+   * @param {number} maxAmount новое значение
+   */
+  SetMaxAmount(maxAmount) {
+    this.MaxAmount = maxAmount;
+    return;
+  }
+
+  /**
+   * Метод устанавливает остаток ссудной задолженности по рефининансируемому кредиту
+   * @param {number} newValue новое значение
+   */
+  SetBalanceDebt(newValue) {
+    this.BalanceDebt = newValue;
+    return;
+  }
+
+  /**
+   * Метод устанавливает флаг дополнительной суммы кредита
+   * @param {boolean} newValue новое значение
+   */
+  SetIsAdditionalAmount(newValue) {
+    this.IsAdditionalAmount = newValue;
+    return;
+  }
+
+  /**
+   * Метод устанавливает дополнительную сумму кредита
+   * @param {number} amount новое значение
+   */
+  SetAdditionalAmount(amount) {
+    if (this.IsAdditionalAmount) {
+      if (this.MinAmount <= amount && amount <= this.MaxAmount) {
+        this.AdditionalAmount = amount;
+      }
+    } else {
+      this.AdditionalAmount = 0;
+    }
+  }
+
+  /**
+   * Метод устанавливает срок кредита
+   * @param {number} newValue новое значение срока кредита
+   * @param {string} newText новый текст срока кредита
+   */
+  SetMaturity(newValue, newText) {
+    this.Maturity.Value = newValue;
+    this.Maturity.Text = newText;
+    return;
+  }
+
+  /**
+   * Метод устанавливает номер телефона
+   * @param {string} newValue новое значение номера
+   */
+  SetPhone(newValue) {
+    this.Phone = newValue;
+    return;
+  }
+
+  /**
+   * Метод устанавливает дополнительный номер телефона
+   * @param {string} newType тип номера
+   * @param {string} newValue новое значение номера
+   */
+  SetAdditionalPhone(newType, newValue) {
+    this.AdditionalPhone.Type = newType;
+    this.AdditionalPhone.Value = newValue;
+    return;
+  }
+
+  /**
+   * Метод устанавливает электронную почту клиента
+   * @text электронная почта клиента
+   */
+  SetEmail(text) {
+    if (text.length <= CREDIT_ONLINE_MAX_LENGTH_EMAIL) {
+      this.Email = text;
+      return;
+    } else {
+      text = text.substring(0, CREDIT_ONLINE_MAX_LENGTH_EMAIL - 3);
+      this.Email = text + '...';
+      return;
+    }
+  }
+
+  /**
+   * Метод устанавливает семейное положение клиента
+   * @param {number} newValue новое значение семейного положения
+   * @param {string} newText новый текст семейного положения
+   */
+  SetFamilyState(newValue, newText) {
+    this.FamilyState.Value = newValue;
+    this.FamilyState.Text = newText;
+    return;
+  }
+
+  /**
+   * Метод устанавливает количество детей младше 18 лет
+   * @param {number} newValue новое значение количества детей младше 18 лет
+   * @param {string} newText новый текст количества детей младше 18 лет
+   */
+  SetNumberOfChildrenUnder18(newValue, newText) {
+    this.NumberOfChildrenUnder18.Value = newValue;
+    this.NumberOfChildrenUnder18.Text = newText;
+    return;
+  }
+
+  /**
+   * Метод устанавливает новое значение суммы дохода
+   * @param {number} newValue новое значение суммы дохода
+   */
+  SetAmountOfIncome(newValue) {
+    this.AmountOfIncome = newValue;
+    return;
+  }
+
+  /**
+   * Метод устанавливает новое значение свойства
+   * {Получаю зарплату/пенсию на счёт в АО "БАНК ОРЕНБУРГ"}
+   * @param {boolean} newValue новое значение свойства
+   */
+  SetIsSalaryInBank(newValue) {
+    this.IsSalaryInBank = newValue;
+    return;
+  }
+
+  /**
+   * Метод устанавливает статус занятости клиента
+   * @param {number} newValue новое значение статуса занятости
+   * @param {string} newText новый текст статуса занятости
+   */
+  SetBusyStatus(newValue, newText) {
+    this.BusyStatus.Value = newValue;
+    this.BusyStatus.Text = newText;
+    return;
+  }
+
+  /**
+   * Метод устанавливает наименование организации
+   * @param {string} newValue новое наименование организации
+   */
+  SetNameOfTheOrganization(newValue) {
+    this.NameOfTheOrganization = newValue;
+    return;
+  }
+
+  /**
+   * Метод устаналивает адрес работодателя
+   * @param {string} newValue новое значение адреса
+   */
+  SetEmployersAddress(newValue) {
+    this.EmployersAddress = newValue;
+    return;
+  }
+
+  /**
+   * Методе устанавливает ИНН организации работодателя
+   * @param {string} newINN новое значение ИНН организации работодателя
+   */
+  SetEmployersINN(newINN) {
+    this.EmployersINN = newINN;
+    return;
+  }
+
+  /**
+   * Метод устанавливает опыт работы на текущем месте
+   * @param {number} newValue новое значение опыта работы
+   * @param {string} newText новый текст опыта работы
+   */
+  SetCurrentWorkExperience(newValue, newText) {
+    this.CurrentWorkExperience.Value = newValue;
+    this.CurrentWorkExperience.Text = newText;
+    return;
+  }
+
+  /**
+   * Офис для получения кредита
+   * @param {number} newValue новое значение
+   * @param {string} newText новый текст
+   */
+  SetOfficeForReceivingCredit(newValue, newText) {
+    this.OfficeForReceivingCredit.Value = newValue;
+    this.OfficeForReceivingCredit.Text = newText;
+    return;
+  }
+
+  /**
+   * Время когда можно связаться с клиентом
+   * @param {number} newValue новое значение
+   * @param {string} newText новый текст
+   * @returns
+   */
+  SetTheTimeWhenYouCanContactTheClient(newValue, newText) {
+    this.TheTimeWhenYouCanContactTheClient.Value = newValue;
+    this.TheTimeWhenYouCanContactTheClient.Text = newText;
+    return;
+  }
+
+  /**
+   * Метод устанавливает комментарий к заявке
+   * @text комментарий к заявке
+   */
+  SetCommentMessage(text) {
+    if (text.length <= CREDIT_ONLINE_MAX_LENGTH_COMMENT_MESSAGE) {
+      this.CommentMessage = text;
+      return;
+    } else {
+      text = text.substring(0, CREDIT_ONLINE_MAX_LENGTH_COMMENT_MESSAGE - 3);
+      this.CommentMessage = text + '...';
+      return;
+    }
+  }
+
+  /**
+   * Метод устанавливает согласие на обработку персональных данных
+   * @param {boolean} newValue новое значение
+   */
+  SetIsConsentToTheProcessingOfPersonalData(newValue) {
+    this.IsConsentToTheProcessingOfPersonalData = newValue;
+  }
+
+  /**
+   * Метод устанавливает согласие на запрос в БКИ
+   * @param {boolean} newValue новое значение
+   */
+  SetIsConsentToTheRequestOfTheBCH(newValue) {
+    this.IsConsentToTheRequestOfTheBCH = newValue;
+  }
+
+  /**
+   * Метод устанавливает согласие на рекламный материал
+   * @param {boolean} newValue новое значение
+   */
+  SetIsConsentToAdvertisingMaterial(newValue) {
+    this.IsConsentToAdvertisingMaterial = newValue;
+  }
+
+  /**
+   * Метод устанавливает валидацию формы заявки
+   * @param {boolean} newValue новое значение
+   */
+  SetIsValidate(newValue) {
+    this.IsValidate = newValue;
+  }
+
+  /**
+   * Метод устанавливает идентификатор
+   * @param {boolean} newValue новое значение
+   */
+  SetGuid(newValue) {
+    this.Guid = newValue;
+  }
+
+  /**
+   * Метод возвращает текст цели кредита
+   * @returns Текст цели кредита
+   */
+  GetPurposeText() {
+    return this.Purpose.Text;
+  }
+
+  /**
+   * Метод возвращает значение цели кредита
+   * @returns Значение цели кредита
+   */
+  GetPurposeValue() {
+    return this.Purpose.Value;
+  }
+
+  /**
+   * Метод возвращает сумму кредита
+   * @returns Сумма кредита
+   */
+  GetAmount() {
+    return this.Amount;
+  }
+
+  /**
+   * Возвращает минимальную сумму кредита
+   * @returns Минимальная сумма кредита
+   */
+  GetMinAmount() {
+    return this.MinAmount;
+  }
+
+  /**
+   * Возвращает максимальную сумму кредита
+   * @returns Максимальная сумма кредита
+   */
+  GetMaxAmount() {
+    return this.MaxAmount;
+  }
+
+  /**
+   * Возвращает остаток ссудной задолженности по рефининансируемому кредиту
+   * @returns Остаток ссудной задолженности по рефининансируемому кредиту
+   */
+  GetBalanceDebt() {
+    return this.BalanceDebt;
+  }
+
+  /**
+   * Возвращает хочу взять дополнительную сумму на другие цели
+   * @returns Хочу взять дополнительную сумму на другие цели
+   */
+  GetIsAdditionalAmount() {
+    return this.IsAdditionalAmount;
+  }
+
+  /**
+   * Возвращает дополнительную сумму кредита
+   * @returns Дополнительная сумма кредита
+   */
+  GetAdditionalAmount() {
+    return this.AdditionalAmount;
+  }
+
+  /**
+   * Возвращает текущий текст срока кредита
+   * @returns текущий текст срока кредита
+   */
+  GetMaturityText() {
+    return this.Maturity.Text;
+  }
+
+  /**
+   * Возвращает текущее значение срока кредита
+   * @returns текущее значение срока кредита
+   */
+  GetMaturityValue() {
+    return this.Maturity.Value;
+  }
+
+  /**
+   * Возвращает номер телефона
+   * @returns Номер телефона
+   */
+  GetPhone() {
+    return this.Phone;
+  }
+
+  /**
+   * Возвращает тип дополнительного номера телефона
+   * @returns тип номера телефона
+   */
+  GetAdditionalPhoneType() {
+    return this.AdditionalPhone.Type;
+  }
+
+  /**
+   * Возвращает значение дополнительного номера телефона
+   * @returns текущее значение дополнительного номера телефона
+   */
+  GetAdditionalPhoneValue() {
+    return this.AdditionalPhone.Value;
+  }
+
+  /**
+   * Возвращает электронную почту
+   * @returns Электронная почта
+   */
+  GetEmail() {
+    return this.Email;
+  }
+
+  /**
+   * Возвращает текущее значение семейного положения
+   * @returns текущее значение семейного положения
+   */
+  GetFamilyStateValue() {
+    return this.FamilyState.Value;
+  }
+
+  /**
+   * Возвращает текущий текст семейного положения
+   * @returns текущий текст семейного положения
+   */
+  GetFamilyStateText() {
+    return this.FamilyState.Text;
+  }
+
+  /**
+   * Возвращает текущее значение количества детей младше 18 лет
+   * @returns текущее значение количества детей младше 18 лет
+   */
+  GetNumberOfChildrenUnder18Value() {
+    return this.NumberOfChildrenUnder18.Value;
+  }
+
+  /**
+   * Возвращает текущий текст количества детей младше 18 лет
+   * @returns текущий текст количества детей младше 18 лет
+   */
+  GetNumberOfChildrenUnder18Text() {
+    return this.NumberOfChildrenUnder18.Text;
+  }
+
+  /**
+   * Возвращает сумму дохода
+   * @returns Сумма дохода
+   */
+  GetAmountOfIncome() {
+    return this.AmountOfIncome;
+  }
+
+  /**
+   * Возвращает [Получаю зарплату/пенсию на счёт в АО "БАНК ОРЕНБУРГ"]
+   * @returns Получаю зарплату/пенсию на счёт в АО "БАНК ОРЕНБУРГ"
+   */
+  GetIsSalaryInBank() {
+    return this.IsSalaryInBank;
+  }
+
+  /**
+   * Возвращает текущее значение статуса занятости
+   * @returns текущее значение статуса занятости
+   */
+  GetBusyStatusValue() {
+    return this.BusyStatus.Value;
+  }
+
+  /**
+   * Возвращает текущий текст статуса занятости
+   * @returns текущий текст статуса занятости
+   */
+  GetBusyStatusText() {
+    return this.BusyStatus.Text;
+  }
+
+  /**
+   * Возвращает наименование организации
+   * @returns Наименование организации
+   */
+  GetNameOfTheOrganization() {
+    return this.NameOfTheOrganization;
+  }
+
+  /**
+   * Возвращает адрес работадателя
+   * @returns Адрес работадателя
+   */
+  GetEmployersAddress() {
+    return this.EmployersAddress;
+  }
+
+  /**
+   * Возвращает ИНН организации работодателя
+   * @returns ИНН организации работодателя
+   */
+  GetEmployersINN() {
+    return this.EmployersINN;
+  }
+
+  /**
+   * Возвращает текущее значение стажа на текущем месте работы
+   * @returns текущее значение стажа на текущем месте работы
+   */
+  GetCurrentWorkExperienceValue() {
+    return this.CurrentWorkExperience.Value;
+  }
+
+  /**
+   * Возвращает текущий текст стажа на текущем месте работы
+   * @returns текущий текст стажа на текущем месте работы
+   */
+  GetCurrentWorkExperienceText() {
+    return this.CurrentWorkExperience.Text;
+  }
+
+  /**
+   * Возвращает текущее значение офиса для получения кредита
+   * @returns текущее значение офиса для получения кредита
+   */
+  GetOfficeForReceivingCreditValue() {
+    return this.OfficeForReceivingCredit.Value;
+  }
+
+  /**
+   * Возвращает текущий текст офиса для получения кредита
+   * @returns текущий текст офиса для получения кредита
+   */
+  GetOfficeForReceivingCreditText() {
+    return this.OfficeForReceivingCredit.Text;
+  }
+
+  /**
+   * Возвращает текущее значение времени когда можно связаться с клиентом
+   * @returns текущее значение времени когда можно связаться с клиентом
+   */
+  GetTheTimeWhenYouCanContactTheClientValue() {
+    return this.TheTimeWhenYouCanContactTheClient.Value;
+  }
+
+  /**
+   * Возвращает текущий текст времени когда можно связаться с клиентом
+   * @returns текущий текст времени когда можно связаться с клиентом
+   */
+  GetTheTimeWhenYouCanContactTheClientText() {
+    return this.TheTimeWhenYouCanContactTheClient.Text;
+  }
+
+  /**
+   * Возвращает комментарий к заявке
+   * @returns Комментарий к заявке
+   */
+  GetCommentMessage() {
+    return this.CommentMessage;
+  }
+
+  /**
+   * Возвращает согласие на обработку персональных данных
+   * @returns Согласие на обработку персональных данных
+   */
+  GetIsConsentToTheProcessingOfPersonalData() {
+    return this.IsConsentToTheProcessingOfPersonalData;
+  }
+
+  /**
+   * Возвращает согласие на запрос в БКИ
+   * @returns Согласие на запрос в БКИ
+   */
+  GetIsConsentToTheRequestOfTheBCH() {
+    return this.IsConsentToTheRequestOfTheBCH;
+  }
+
+  /**
+   * Возвращает согласие на рекламный материал
+   * @returns Согласие на рекламный материал
+   */
+  GetIsConsentToAdvertisingMaterial() {
+    return this.IsConsentToAdvertisingMaterial;
+  }
+
+  /**
+   * Возвращает валидацию формы кредитной заявки
+   * @returns Валидация формы кредитной заявки
+   */
+  GetIsValidate() {
+    return this.IsValidate;
+  }
+
+  /**
+   * Возвращает идентификатор
+   * @returns идентификатор
+   */
+  GetGuid() {
+    return this.Guid;
+  }
+
+  /**
+   * Метод отправляет на консоль состояние текущего экземпляра объекта
+   */
+  ToConsole() {
+    console.clear();
+    console.log('==========================================================');
+    console.log('====== состояние текущего экземпляра объекта начало ======');
+    console.log('==========================================================');
+
+    console.log('Guid: ' + this.GetGuid());
+    console.log('Валидация формы кредитной заявки: ' + this.GetIsValidate());
+
+    console.log('Текст цели кредита: ' + this.GetPurposeText());
+    console.log('Значение цели кредита: ' + this.GetPurposeValue());
+    console.log('Сумма кредита: ' + this.GetAmount());
+    console.log('Минимальная сумма кредита: ' + this.GetMinAmount());
+    console.log('Максимальная сумма кредита: ' + this.GetMaxAmount());
+    console.log(
+      'Остаток ссудной задолж. по реф. кредиту: ' + this.GetBalanceDebt()
+    );
+    console.log(
+      'Хочу взять доп. сумму на др. цели: ' + this.GetIsAdditionalAmount()
+    );
+    console.log('Дополнительная сумма кредита: ' + this.GetAdditionalAmount());
+
+    console.log('Текущий текст срока кредита: ' + this.GetMaturityText());
+    console.log('Текущее значение срока кредита: ' + this.GetMaturityValue());
+
+    console.log('Номер телефона: ' + this.GetPhone());
+
+    console.log(
+      'Тип дополнительного номера телефона: ' + this.GetAdditionalPhoneType()
+    );
+    console.log(
+      'Значение дополнительного номера телефона: ' +
+        this.GetAdditionalPhoneValue()
+    );
+
+    console.log('Электронная почта: ' + this.GetEmail());
+
+    console.log(
+      'текущий текст семейного положения: ' + this.GetFamilyStateText()
+    );
+    console.log(
+      'текущее значение семейного положения: ' + this.GetFamilyStateValue()
+    );
+
+    console.log(
+      'текущий текст количества детей младше 18 лет: ' +
+        this.GetNumberOfChildrenUnder18Text()
+    );
+    console.log(
+      'текущее значение количества детей младше 18 лет: ' +
+        this.GetNumberOfChildrenUnder18Value()
+    );
+
+    console.log('Сумма дохода: ' + this.GetAmountOfIncome());
+
+    console.log(
+      'Получаю зарплату/пенсию на счёт в АО "БАНК ОРЕНБУРГ": ' +
+        this.GetIsSalaryInBank()
+    );
+
+    console.log('текущий текст статуса занятости: ' + this.GetBusyStatusText());
+    console.log(
+      'текущее значение статуса занятости: ' + this.GetBusyStatusValue()
+    );
+
+    console.log('Наименование организации: ' + this.GetNameOfTheOrganization());
+
+    console.log('Адрес работадателя: ' + this.GetEmployersAddress());
+
+    console.log('ИНН организации работодателя: ' + this.GetEmployersINN());
+
+    console.log(
+      'текущий текст стажа на текущем месте работы: ' +
+        this.GetCurrentWorkExperienceText()
+    );
+    console.log(
+      'текущее значение стажа на текущем месте работы: ' +
+        this.GetCurrentWorkExperienceValue()
+    );
+
+    console.log(
+      'текущий текст офиса для получения кредита: ' +
+        this.GetOfficeForReceivingCreditText()
+    );
+    console.log(
+      'текущее значение офиса для получения кредита: ' +
+        this.GetOfficeForReceivingCreditValue()
+    );
+
+    console.log(
+      'текущий текст времени когда можно связаться с клиентом: ' +
+        this.GetTheTimeWhenYouCanContactTheClientText()
+    );
+    console.log(
+      'текущее значение времени когда можно связаться с клиентом: ' +
+        this.GetTheTimeWhenYouCanContactTheClientValue()
+    );
+
+    console.log('Комментарий к заявке: ' + this.GetCommentMessage());
+
+    console.log(
+      'Согласие на обработку персональных данных: ' +
+        this.GetIsConsentToTheProcessingOfPersonalData()
+    );
+
+    console.log(
+      'Согласие на запрос в БКИ: ' + this.GetIsConsentToTheRequestOfTheBCH()
+    );
+
+    console.log(
+      'Согласие на рекламный материал: ' +
+        this.GetIsConsentToAdvertisingMaterial()
+    );
+
+    console.log('==========================================================');
+    console.log('====== состояние текущего экземпляра объекта конец ======');
+    console.log('==========================================================');
+  }
+
+  /**
+   * Конструктор класса PotrebCreditOnline
+   */
+  constructor() {
+    this.Id = this; // Установить идентификатор текущего объекта
+  }
+}
+
+/**
+ * Валидация параметров
+ */
+function creditOnline__validator() {
+  creditOnline__postSelectChecker(
+    creditOnline__purposeOfTheCredit,
+    creditOnline.GetPurposeValue(),
+    creditOnline__errorBox,
+    creditOnline__successBox
+  );
+  creditOnline__postSelectChecker(
+    creditOnline__familyState,
+    creditOnline.GetFamilyStateValue(),
+    creditOnline__errorBox,
+    creditOnline__successBox
+  );
+  creditOnline__postSelectChecker(
+    creditOnline__numberOfChildrenUnder18,
+    creditOnline.GetNumberOfChildrenUnder18Value(),
+    creditOnline__errorBox,
+    creditOnline__successBox
+  );
+  // creditOnline__postSelectChecker(
+  //   creditOnline__additionalPhoneType,
+  //   creditOnline.GetAdditionalPhoneType(),
+  //   creditOnline__errorBox,
+  //   creditOnline__successBox
+  // );
+  creditOnline__postSelectChecker(
+    creditOnline__busyStatus,
+    creditOnline.GetBusyStatusValue(),
+    creditOnline__errorBox,
+    creditOnline__successBox
+  );
+
+  creditOnline__postSelectChecker(
+    creditOnline__officeForReceivingCredit,
+    creditOnline.GetOfficeForReceivingCreditValue(),
+    creditOnline__errorBox,
+    creditOnline__successBox
+  );
+  creditOnline__postSelectChecker(
+    creditOnline__theTimeWhenYouCanContactTheClient,
+    creditOnline.GetTheTimeWhenYouCanContactTheClientValue(),
+    creditOnline__errorBox,
+    creditOnline__successBox
+  );
+
+  creditOnline__postFieldChecker(
+    creditOnline__amount,
+    creditOnline__errorBox,
+    creditOnline__successBox
+  );
+
+  if (
+    creditOnline.GetPurposeValue() == 7 ||
+    creditOnline.GetPurposeValue() == 8
+  ) {
+    creditOnline__postFieldChecker(
+      creditOnline__balanceDebt,
+      creditOnline__errorBox,
+      creditOnline__successBox
+    );
+  } else {
+    $(creditOnline__balanceDebt).removeClass(creditOnline__errorBox);
+    $(creditOnline__balanceDebt).removeClass(creditOnline__successBox);
+    creditOnline.BalanceDebt = 0;
+  }
+
+  if (creditOnline.GetIsAdditionalAmount()) {
+    creditOnline__postFieldChecker(
+      creditOnline__additionalAmount,
+      creditOnline__errorBox,
+      creditOnline__successBox
+    );
+  } else {
+    $(creditOnline__additionalAmount).removeClass(creditOnline__errorBox);
+    $(creditOnline__additionalAmount).removeClass(creditOnline__successBox);
+  }
+
+  creditOnline__postFieldChecker(
+    creditOnline__maturity,
+    creditOnline__errorBox,
+    creditOnline__successBox
+  );
+
+  creditOnline__postFieldChecker(
+    creditOnline__phone,
+    creditOnline__errorBox,
+    creditOnline__successBox
+  );
+
+  // creditOnline__postEmailChecker(
+  //   creditOnline__email,
+  //   creditOnline__errorBox,
+  //   creditOnline__successBox
+  // );
+
+  creditOnline__postFieldChecker(
+    creditOnline__amountOfIncome,
+    creditOnline__errorBox,
+    creditOnline__successBox
+  );
+
+  if (
+    creditOnline.GetBusyStatusValue() == 'work' ||
+    creditOnline.GetBusyStatusValue() == 'workPens'
+  ) {
+    creditOnline__postSelectChecker(
+      creditOnline__currentWorkExperience,
+      creditOnline.GetCurrentWorkExperienceValue(),
+      creditOnline__errorBox,
+      creditOnline__successBox
+    );
+    creditOnline__postFieldChecker(
+      creditOnline__nameOfTheOrganization,
+      creditOnline__errorBox,
+      creditOnline__successBox
+    );
+    creditOnline__postFieldChecker(
+      creditOnline__employersAddress,
+      creditOnline__errorBox,
+      creditOnline__successBox
+    );
+    creditOnline__postFieldChecker(
+      creditOnline__employersINN,
+      creditOnline__errorBox,
+      creditOnline__successBox
+    );
+  } else {
+    $(creditOnline__nameOfTheOrganization).removeClass(creditOnline__errorBox);
+    $(creditOnline__nameOfTheOrganization).removeClass(
+      creditOnline__successBox
+    );
+
+    $(creditOnline__employersAddress).removeClass(creditOnline__errorBox);
+    $(creditOnline__employersAddress).removeClass(creditOnline__successBox);
+
+    $(creditOnline__employersINN).removeClass(creditOnline__errorBox);
+    $(creditOnline__employersINN).removeClass(creditOnline__successBox);
+
+    $(creditOnline__currentWorkExperience).removeClass(creditOnline__errorBox);
+    $(creditOnline__currentWorkExperience).removeClass(
+      creditOnline__successBox
+    );
+  }
+
+  creditOnline__postFieldChecker(
+    creditOnline__commentMessage,
+    creditOnline__errorBox,
+    creditOnline__successBox
+  );
+}
+
+/**
+ * Привязка обработчиков событий
+ * @param {string} id идентификатор
+ */
+function creditOnline__handleEventChangeById(id) {
+  $(id).on('change', function (e) {
+    switch (id) {
+      case creditOnline__amount:
+        creditOnline__postFieldChecker(
+          creditOnline__amount,
+          creditOnline__errorBox,
+          creditOnline__successBox,
+          true
+        );
+        break;
+
+      case creditOnline__balanceDebt:
+        if (
+          creditOnline.GetPurposeValue() == 7 ||
+          creditOnline.GetPurposeValue() == 8
+        ) {
+          creditOnline__postFieldChecker(
+            creditOnline__balanceDebt,
+            creditOnline__errorBox,
+            creditOnline__successBox,
+            true
+          );
+        } else {
+          $(creditOnline__balanceDebt).removeClass(creditOnline__errorBox);
+          $(creditOnline__balanceDebt).removeClass(creditOnline__successBox);
+          creditOnline.BalanceDebt = 0;
+        }
+        break;
+
+      case creditOnline__additionalAmount:
+        if (creditOnline.GetIsAdditionalAmount()) {
+          creditOnline__postFieldChecker(
+            creditOnline__additionalAmount,
+            creditOnline__errorBox,
+            creditOnline__successBox,
+            true
+          );
+        } else {
+          $(creditOnline__additionalAmount).removeClass(creditOnline__errorBox);
+          $(creditOnline__additionalAmount).removeClass(
+            creditOnline__successBox
+          );
+        }
+
+        break;
+
+      case creditOnline__maturity:
+        creditOnline__postFieldChecker(
+          creditOnline__maturity,
+          creditOnline__errorBox,
+          creditOnline__successBox
+        );
+        break;
+
+      case creditOnline__phone:
+        creditOnline__postFieldChecker(
+          creditOnline__phone,
+          creditOnline__errorBox,
+          creditOnline__successBox,
+          true
+        );
+        break;
+
+      case creditOnline__email:
+        creditOnline__postEmailChecker(
+          creditOnline__email,
+          creditOnline__errorBox,
+          creditOnline__successBox
+        );
+
+        break;
+
+      case creditOnline__amountOfIncome:
+        creditOnline__postFieldChecker(
+          creditOnline__amountOfIncome,
+          creditOnline__errorBox,
+          creditOnline__successBox,
+          true
+        );
+        break;
+
+      case creditOnline__nameOfTheOrganization:
+        if (
+          creditOnline.GetBusyStatusValue() == 'work' ||
+          creditOnline.GetBusyStatusValue() == 'workPens'
+        ) {
+          creditOnline__postFieldChecker(
+            creditOnline__nameOfTheOrganization,
+            creditOnline__errorBox,
+            creditOnline__successBox,
+            true
+          );
+        } else {
+          $(creditOnline__nameOfTheOrganization).removeClass(
+            creditOnline__errorBox
+          );
+          $(creditOnline__nameOfTheOrganization).removeClass(
+            creditOnline__successBox
+          );
+
+          $(creditOnline__employersAddress).removeClass(creditOnline__errorBox);
+          $(creditOnline__employersAddress).removeClass(
+            creditOnline__successBox
+          );
+
+          $(creditOnline__employersINN).removeClass(creditOnline__errorBox);
+          $(creditOnline__employersINN).removeClass(creditOnline__successBox);
+
+          $(creditOnline__currentWorkExperience).removeClass(
+            creditOnline__errorBox
+          );
+          $(creditOnline__currentWorkExperience).removeClass(
+            creditOnline__successBox
+          );
+        }
+
+        break;
+
+      case creditOnline__employersAddress:
+        if (
+          creditOnline.GetBusyStatusValue() == 'work' ||
+          creditOnline.GetBusyStatusValue() == 'workPens'
+        ) {
+          creditOnline__postFieldChecker(
+            creditOnline__employersAddress,
+            creditOnline__errorBox,
+            creditOnline__successBox,
+            true
+          );
+        } else {
+          $(creditOnline__nameOfTheOrganization).removeClass(
+            creditOnline__errorBox
+          );
+          $(creditOnline__nameOfTheOrganization).removeClass(
+            creditOnline__successBox
+          );
+
+          $(creditOnline__employersAddress).removeClass(creditOnline__errorBox);
+          $(creditOnline__employersAddress).removeClass(
+            creditOnline__successBox
+          );
+
+          $(creditOnline__employersINN).removeClass(creditOnline__errorBox);
+          $(creditOnline__employersINN).removeClass(creditOnline__successBox);
+
+          $(creditOnline__currentWorkExperience).removeClass(
+            creditOnline__errorBox
+          );
+          $(creditOnline__currentWorkExperience).removeClass(
+            creditOnline__successBox
+          );
+        }
+        break;
+
+      case creditOnline__employersINN:
+        if (
+          creditOnline.GetBusyStatusValue() == 'work' ||
+          creditOnline.GetBusyStatusValue() == 'workPens'
+        ) {
+          creditOnline__postFieldChecker(
+            creditOnline__employersINN,
+            creditOnline__errorBox,
+            creditOnline__successBox,
+            true
+          );
+        } else {
+          $(creditOnline__nameOfTheOrganization).removeClass(
+            creditOnline__errorBox
+          );
+          $(creditOnline__nameOfTheOrganization).removeClass(
+            creditOnline__successBox
+          );
+
+          $(creditOnline__employersAddress).removeClass(creditOnline__errorBox);
+          $(creditOnline__employersAddress).removeClass(
+            creditOnline__successBox
+          );
+
+          $(creditOnline__employersINN).removeClass(creditOnline__errorBox);
+          $(creditOnline__employersINN).removeClass(creditOnline__successBox);
+
+          $(creditOnline__currentWorkExperience).removeClass(
+            creditOnline__errorBox
+          );
+          $(creditOnline__currentWorkExperience).removeClass(
+            creditOnline__successBox
+          );
+        }
+
+        break;
+
+      case creditOnline__commentMessage:
+        creditOnline__postFieldChecker(
+          creditOnline__commentMessage,
+          creditOnline__errorBox,
+          creditOnline__successBox,
+          true
+        );
+        break;
+
+      // case email:
+      //   postEmailChecker(email, creditOnline__errorBox, creditOnline__successBox);
+      //   break;
+
+      default:
+        break;
+    }
+  });
+}
+
+/**
+ * Проверка на непустые значения
+ * @param {string} id идентификатор html-элемента
+ * @param {string} errorClass css-класс с ошибкой
+ * @param {string} successClass css-класс с успехом
+ * @param {boolean} callFromHandler булевый флаг, для проверки вызова из обработчика событий
+ */
+function creditOnline__postFieldChecker(
+  id,
+  errorClass,
+  successClass,
+  callFromHandler
+) {
+  let flagSuccess = false;
+
+  if (callFromHandler === undefined) {
+    // если метод вызван без 4-го параметра, то false
+    callFromHandler = false;
+  }
+
+  if ($(id).val() == '') {
+    flagSuccess = false;
+    creditOnline__err++;
+    $(id).addClass(errorClass);
+    $(id).removeClass(successClass);
+  } else {
+    flagSuccess = true;
+    $(id).removeClass(errorClass);
+    $(id).addClass(successClass);
+  }
+  if (!callFromHandler)
+    switch (id) {
+      case creditOnline__amount:
+        if (!flagSuccess) {
+          creditOnline__resultMessageSetStatusFail();
+
+          creditOnline__resultMessageAddText(
+            creditOnline__messages.amount.name +
+              creditOnline__messages.amount.invalid
+          );
+          creditOnline__resultMessageAddText(
+            creditOnline__messages.amount.limits.min.textStart +
+              creditOnline__messages.amount.limits.min.value +
+              creditOnline__messages.amount.limits.min.textEnd
+          );
+          creditOnline__resultMessageAddText(
+            creditOnline__messages.amount.limits.max.textStart +
+              creditOnline__messages.amount.limits.max.value +
+              creditOnline__messages.amount.limits.max.textEnd
+          );
+
+          creditOnline__resultMessageAddText(
+            creditOnline__messages.divider.line
+          );
+        }
+        break;
+      case creditOnline__balanceDebt:
+        if (!flagSuccess) {
+          creditOnline__resultMessageSetStatusFail();
+
+          creditOnline__resultMessageAddText(
+            creditOnline__messages.balanceDebt.name +
+              creditOnline__messages.balanceDebt.invalid
+          );
+          creditOnline__resultMessageAddText(
+            creditOnline__messages.balanceDebt.limits.min.textStart +
+              creditOnline__messages.balanceDebt.limits.min.value +
+              creditOnline__messages.balanceDebt.limits.min.textEnd
+          );
+          creditOnline__resultMessageAddText(
+            creditOnline__messages.balanceDebt.limits.max.textStart +
+              creditOnline__messages.balanceDebt.limits.max.value +
+              creditOnline__messages.balanceDebt.limits.max.textEnd
+          );
+          creditOnline__resultMessageAddText(
+            creditOnline__messages.balanceDebt.extra
+          );
+          creditOnline__resultMessageAddText(
+            creditOnline__messages.balanceDebt.info
+          );
+
+          creditOnline__resultMessageAddText(
+            creditOnline__messages.divider.line
+          );
+        }
+        break;
+
+      case creditOnline__additionalAmount:
+        if (!flagSuccess) {
+          creditOnline__resultMessageSetStatusFail();
+
+          creditOnline__resultMessageAddText(
+            creditOnline__messages.additionalAmount.name +
+              creditOnline__messages.additionalAmount.invalid
+          );
+          creditOnline__resultMessageAddText(
+            creditOnline__messages.additionalAmount.limits.min.textStart +
+              creditOnline__messages.additionalAmount.limits.min.value +
+              creditOnline__messages.additionalAmount.limits.min.textEnd
+          );
+          creditOnline__resultMessageAddText(
+            creditOnline__messages.additionalAmount.limits.max.textStart +
+              creditOnline__messages.additionalAmount.limits.max.value +
+              creditOnline__messages.additionalAmount.limits.max.textEnd
+          );
+
+          creditOnline__resultMessageAddText(
+            creditOnline__messages.divider.line
+          );
+        }
+        break;
+
+      default:
+        break;
+    }
+}
+
+/**
+ * Обработчик события нажатия кнопки "Отправить"
+ */
+function creditOnline__handleBtnSendClick() {
+  $(creditOnline__sendBtn).on('click', function (e) {
+    creditOnline.SetAdditionalAmount(
+      creditOnline__getIntDataById(creditOnline__additionalAmount)
+    );
+
+    creditOnline__validator();
+
+    creditOnline__dataCollector();
+
+    creditOnline__uploadData();
+
+    creditOnline.ToConsole();
+  });
+}
+
+/**
+ * Обработчики событий
+ */
+function creditOnline__handlersStart() {
+  $(creditOnline__isAdditionalAmount).change(function (e) {
+    if (creditOnline__isCheckById(creditOnline__isAdditionalAmount)) {
+      creditOnline__toUnHideTheElement('.credit-online__additionalAmount');
+      creditOnline.SetIsAdditionalAmount(true);
+      // creditOnline.SetAdditionalAmount(121212);
+
+      creditOnline.SetAdditionalAmount(
+        creditOnline__getIntDataById(creditOnline__additionalAmount)
+      );
+
+      console.clear();
+      console.log(
+        'isAdditionalAmount = ' + creditOnline.GetIsAdditionalAmount()
+      );
+      console.log('AdditionalAmount = ' + creditOnline.GetAdditionalAmount());
+    } else {
+      creditOnline__toHideTheElement('.credit-online__additionalAmount');
+      // creditOnline.SetAdditionalAmount(0);
+      creditOnline.AdditionalAmount = 0;
+      creditOnline.SetIsAdditionalAmount(false);
+
+      console.clear();
+      console.log(
+        'isAdditionalAmount = ' + creditOnline.GetIsAdditionalAmount()
+      );
+      console.log('AdditionalAmount = ' + creditOnline.GetAdditionalAmount());
+    }
+  });
+
+  $(creditOnline__isSalaryInBank).change(function (e) {
+    if (creditOnline__isCheckById(creditOnline__isSalaryInBank)) {
+      creditOnline.SetIsSalaryInBank(true);
+    } else {
+      creditOnline.SetIsSalaryInBank(false);
+    }
+  });
+
+  $(creditOnline__isConsentToTheProcessingOfPersonalData).change(function (e) {
+    if (
+      creditOnline__isCheckById(
+        creditOnline__isConsentToTheProcessingOfPersonalData
+      )
+    ) {
+      creditOnline.SetIsConsentToTheProcessingOfPersonalData(true);
+    } else {
+      creditOnline.SetIsConsentToTheProcessingOfPersonalData(false);
+    }
+  });
+
+  $(creditOnline__isConsentToTheRequestOfTheBCH).change(function (e) {
+    if (
+      creditOnline__isCheckById(creditOnline__isConsentToTheRequestOfTheBCH)
+    ) {
+      creditOnline.SetIsConsentToTheRequestOfTheBCH(true);
+    } else {
+      creditOnline.SetIsConsentToTheRequestOfTheBCH(false);
+    }
+  });
+
+  $(creditOnline__isConsentToAdvertisingMaterial).change(function (e) {
+    if (
+      creditOnline__isCheckById(creditOnline__isConsentToAdvertisingMaterial)
+    ) {
+      creditOnline.SetIsConsentToAdvertisingMaterial(true);
+    } else {
+      creditOnline.SetIsConsentToAdvertisingMaterial(false);
+    }
+  });
+
+  creditOnline__handleBtnSendClick();
+
+  creditOnline__handleEventChangeById(creditOnline__amount);
+  creditOnline__handleEventFocusById(creditOnline__amount);
+  creditOnline__handleEventBlurById(creditOnline__amount);
+  creditOnline__handleEventClickById(creditOnline__amount);
+
+  creditOnline__handleEventChangeById(creditOnline__balanceDebt);
+
+  creditOnline__handleEventChangeById(creditOnline__additionalAmount);
+
+  creditOnline__handleEventChangeById(creditOnline__maturity);
+  creditOnline__handleEventFocusById(creditOnline__maturity);
+  creditOnline__handleEventBlurById(creditOnline__maturity);
+  creditOnline__handleEventClickById(creditOnline__maturity);
+
+  creditOnline__handleEventChangeById(creditOnline__phone);
+
+  // creditOnline__handleEventChangeById(creditOnline__email);
+
+  creditOnline__handleEventChangeById(creditOnline__amountOfIncome);
+
+  creditOnline__handleEventChangeById(creditOnline__nameOfTheOrganization);
+
+  creditOnline__handleEventChangeById(creditOnline__employersAddress);
+
+  creditOnline__handleEventChangeById(creditOnline__employersINN);
+
+  creditOnline__handleEventChangeById(creditOnline__commentMessage);
+}
+
+/**
+ * Маска для номера телефона
+ * @param {string} name
+ */
+function creditOnline__addPhoneMask(name) {
+  var customOptions = {
+    onKeyPress: function (val, e, field, options) {
+      if (val.replace(/\D/g, '').length === 1) {
+        val = val.replace('8', '');
+        field.val(val);
+      }
+      field.mask('+7 (999) 999-99-99', options);
+    },
+
+    placeholder: 'Введите номер...',
+  };
+
+  $('input[name=' + name + ']').mask('+7 (999) 999-99-99', customOptions);
+}
+
+/**
+ * Маска для ввода чисел
+ * @param {string} id идентификатор
+ */
+function creditOnline__addAmountMask(id) {
+  var customOptions = {
+    onKeyPress: function (val, e, field, options) {
+      field.mask('00 000 000', { reverse: true });
+    },
+
+    placeholder: 'Введите сумму...',
+  };
+
+  $(id).mask('00 000 000', customOptions);
+}
+
+/**
+ * Маска для ввода чисел
+ * @param {string} id идентификатор
+ */
+function creditOnline__addINNMask(id) {
+  var customOptions = {
+    onKeyPress: function (val, e, field, options) {
+      field.mask('0000000000', { reverse: true });
+    },
+
+    placeholder: 'Введите ИНН...',
+  };
+
+  $(id).mask('0000000000', customOptions);
+}
+
+/**
+ * Маска для ввода чисел
+ * @param {string} id идентификатор
+ */
+function creditOnline__addMaturityMask(id) {
+  var customOptions = {
+    onKeyPress: function (val, e, field, options) {
+      field.mask('000', { reverse: true });
+    },
+
+    placeholder: 'Введите срок...',
+  };
+
+  $(id).mask('000', customOptions);
+}
+
+/**
+ * Сборщик даннных
+ */
+function creditOnline__dataCollector() {
+  // токен
+  creditOnline.SetGuid($(creditOnline__token).text());
+
+  // сумма кредита
+  creditOnline.SetAmount(creditOnline__getIntDataById(creditOnline__amount));
+
+  creditOnline.SetBalanceDebt(
+    creditOnline__getIntDataById(creditOnline__balanceDebt)
+  );
+
+  // срок кредита
+  creditOnline.SetMaturity(
+    creditOnline__getIntDataById(creditOnline__maturity),
+    0
+  );
+
+  // Номер телефона
+  creditOnline.SetPhone($(creditOnline__phone).val());
+
+  // Дополнительный номер телефона
+  if (creditOnline.GetAdditionalPhoneType() != null) {
+    creditOnline.SetAdditionalPhone(
+      creditOnline.GetAdditionalPhoneType(),
+      $(creditOnline__additionalPhoneValue).val()
+    );
+  }
+
+  // наименование организации
+  creditOnline.SetNameOfTheOrganization(
+    $(creditOnline__nameOfTheOrganization).val()
+  );
+
+  // адрес работодателя
+  creditOnline.SetEmployersAddress($(creditOnline__employersAddress).val());
+
+  // ИНН
+  creditOnline.SetEmployersINN($(creditOnline__employersINN).val());
+
+  // доход
+  creditOnline.SetAmountOfIncome(
+    creditOnline__getIntDataById(creditOnline__amountOfIncome)
+  );
+
+  // Электронная почта
+  // creditOnline.SetEmail($(creditOnline__email).val());
+
+  // Комментарий пользователя
+  creditOnline.SetCommentMessage($(creditOnline__commentMessage).val());
+
+  // дополнительная сумма кредита
+  if (creditOnline__isCheckById(creditOnline__isAdditionalAmount)) {
+    creditOnline.SetIsAdditionalAmount(true);
+  } else {
+    creditOnline.AdditionalAmount = 0;
+    creditOnline.SetIsAdditionalAmount(false);
+  }
+
+  // чекбоксы
+  if (
+    creditOnline__isCheckById(
+      creditOnline__isConsentToTheProcessingOfPersonalData
+    )
+  ) {
+    creditOnline.SetIsConsentToTheProcessingOfPersonalData(true);
+  } else {
+    creditOnline.SetIsConsentToTheProcessingOfPersonalData(false);
+  }
+
+  if (creditOnline__isCheckById(creditOnline__isConsentToTheRequestOfTheBCH)) {
+    creditOnline.SetIsConsentToTheRequestOfTheBCH(true);
+  } else {
+    creditOnline.SetIsConsentToTheRequestOfTheBCH(false);
+  }
+
+  if (creditOnline__isCheckById(creditOnline__isConsentToAdvertisingMaterial)) {
+    creditOnline.SetIsConsentToAdvertisingMaterial(true);
+  } else {
+    creditOnline.SetIsConsentToAdvertisingMaterial(false);
+  }
+}
+
+/**
+ * Проверка заполнения ниспадающих списков
+ * @param {string} id идентификатор ниспадающего списка
+ * @param {number} value значение ниспадающего списка
+ * @param {string} errorClass css-класс ошибки заполнения
+ * @param {string} successClass css-класс успешного заполнения
+ */
+function creditOnline__postSelectChecker(id, value, errorClass, successClass) {
+  let flagSuccess = false;
+
+  if (value !== null) {
+    $(id).removeClass(errorClass);
+    $(id).addClass(successClass);
+    flagSuccess = true;
+  } else {
+    creditOnline__err++;
+    $(id).addClass(errorClass);
+    $(id).removeClass(successClass);
+    flagSuccess = false;
+  }
+
+  switch (id) {
+    case creditOnline__purposeOfTheCredit:
+      if (!flagSuccess) {
+        creditOnline__resultMessageSetStatusFail();
+        creditOnline__resultMessageAddText(
+          creditOnline__messages.purpose.name +
+            creditOnline__messages.purpose.invalid
+        );
+        creditOnline__resultMessageAddText(creditOnline__messages.divider.line);
+      }
+      break;
+    case creditOnline__familyState:
+      if (!flagSuccess) {
+        creditOnline__resultMessageSetStatusFail();
+        creditOnline__resultMessageAddText(
+          creditOnline__messages.familyState.name +
+            creditOnline__messages.familyState.invalid
+        );
+        creditOnline__resultMessageAddText(creditOnline__messages.divider.line);
+      }
+      break;
+    case creditOnline__numberOfChildrenUnder18:
+      if (!flagSuccess) {
+        creditOnline__resultMessageSetStatusFail();
+        creditOnline__resultMessageAddText(
+          creditOnline__messages.numberOfChildrenUnder18.name +
+            creditOnline__messages.numberOfChildrenUnder18.invalid
+        );
+        creditOnline__resultMessageAddText(creditOnline__messages.divider.line);
+      }
+      break;
+    case creditOnline__busyStatus:
+      if (!flagSuccess) {
+        creditOnline__resultMessageSetStatusFail();
+        creditOnline__resultMessageAddText(
+          creditOnline__messages.busyStatus.name +
+            creditOnline__messages.busyStatus.invalid
+        );
+        creditOnline__resultMessageAddText(creditOnline__messages.divider.line);
+      }
+      break;
+    case creditOnline__officeForReceivingCredit:
+      if (!flagSuccess) {
+        creditOnline__resultMessageSetStatusFail();
+        creditOnline__resultMessageAddText(
+          creditOnline__messages.officeForReceivingCredit.name +
+            creditOnline__messages.officeForReceivingCredit.invalid
+        );
+        creditOnline__resultMessageAddText(creditOnline__messages.divider.line);
+      }
+      break;
+    case creditOnline__theTimeWhenYouCanContactTheClient:
+      if (!flagSuccess) {
+        creditOnline__resultMessageSetStatusFail();
+        creditOnline__resultMessageAddText(
+          creditOnline__messages.theTimeWhenYouCanContactTheClient.name +
+            creditOnline__messages.theTimeWhenYouCanContactTheClient.invalid
+        );
+        creditOnline__resultMessageAddText(creditOnline__messages.divider.line);
+      }
+      break;
+
+    default:
+      break;
+  }
+
+  // creditOnline__resultMessageSetStatusFail()
+  // creditOnline__resultMessageAddText(text)
+}
+
+// проверка валидности электронной почты
+function creditOnline__isValidEmailAddress(emailAddress) {
+  var pattern =
+    /^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
+  return pattern.test(emailAddress);
+}
+
+// проверка валидности электронной почты
+function creditOnline__postEmailChecker(id, errorClass, successClass) {
+  if ($(id).val() != '' && creditOnline__isValidEmailAddress($(id).val())) {
+    $(id).removeClass(errorClass);
+    $(id).addClass(successClass);
+  } else {
+    err++;
+    $(id).addClass(errorClass);
+    $(id).removeClass(successClass);
+  }
+}
+
+/**
+ * Прокрутка до элемента
+ * @param {string} targetId идентификатор-цели
+ */
+function creditOnline__scrollingToDist(targetId) {
+  let elementClick = targetId;
+
+  const headerHeight = 160; // отступ от шапки
+
+  let destination = $(elementClick).offset().top - headerHeight;
+
+  const selector = 'html:not(:animated),body:not(:animated)';
+
+  const speed = 800; // время прокрутки в миллисекундах
+
+  $(selector).animate({ scrollTop: destination }, speed);
+}
+
+/**
+ * Очистить блок с информацией о результате действия
+ */
+function creditOnline__resultMessageClear() {
+  $(creditOnline__resultMessageId).html('');
+}
+
+/**
+ * Обозначить блок с информацией о результате как неудача
+ */
+function creditOnline__resultMessageSetStatusFail() {
+  if ($(creditOnline__resultMessageId).hasClass(creditOnline__alertSuccess)) {
+    $(creditOnline__resultMessageId).removeClass(creditOnline__alertSuccess);
+  }
+
+  $(creditOnline__resultMessageId).removeClass(creditOnline__displayNone);
+  $(creditOnline__resultMessageId).addClass(creditOnline__alertDanger);
+}
+
+/**
+ * Обозначить блок с информацией о результате как успех
+ */
+function creditOnline__resultMessageSetStatusSuccess() {
+  if ($(creditOnline__resultMessageId).hasClass(creditOnline__alertDanger)) {
+    $(creditOnline__resultMessageId).removeClass(creditOnline__alertDanger);
+  }
+
+  $(creditOnline__resultMessageId).removeClass(creditOnline__displayNone);
+
+  $(creditOnline__resultMessageId).addClass(creditOnline__alertSuccess);
+}
+
+/**
+ * Добавить сообщение в блок с информацией о результате
+ * @param {string} text текст сообщения
+ */
+function creditOnline__resultMessageAddText(text) {
+  $(creditOnline__resultMessageId).append(
+    '<p class="links--fs-adaptive-2 md-true">' + text + '</p>'
+  );
+}
+
+/**
+ * Добавить сообщение в блок с информацией о результате сверху
+ * @param {string} text текст сообщения
+ */
+function creditOnline__resultMessageAddTextToTop(text) {
+  $(creditOnline__resultMessageId).prepend(
+    '<p class="links--fs-adaptive-2 md-true">' + text + '</p>'
+  );
+}
+
+/**
+ * Добавить прогресс-бар в блок с информацией о результате
+ */
+function creditOnline__resultMessageAddProgressBar() {
+  $(creditOnline__resultMessageId).append(
+    '<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div></div>'
+  );
+}
+
+/**
+ * Показать блок с информацией о результате
+ */
+function creditOnline__resultMessageShow() {
+  $(creditOnline__resultMessageId).fadeIn();
+}
+
+/**
+ * Отправка данных на сервер
+ * @returns
+ */
+function creditOnline__uploadData() {
+  creditOnline__resultMessageClear();
+  creditOnline__err = 0;
+
+  if (!creditOnline.GetIsConsentToTheProcessingOfPersonalData()) {
+    creditOnline__resultMessageSetStatusFail();
+
+    creditOnline__resultMessageAddText(
+      'Для отправки сообщения требуется согласие на обработку персональных данных'
+    );
+
+    creditOnline__scrollingToDist(creditOnline__resultMessageId);
+    creditOnline__resultMessageShow();
+    return;
+  }
+
+  console.log('feedback.Approval = ' + feedback.Approval);
+  creditOnline__resultMessageClear();
+  creditOnline__err = 0;
+
+  creditOnline__validator(); // валидация полей формы
+
+  if (creditOnline__err == 0 && creditOnline__errFile == 0) {
+    var form_data = false;
+
+    form_data = new FormData();
+
+    //----------------------------------------------------------------------------------
+    let g = creditOnline.GetPurposeValue();
+    if (g == 7 || g == 8) g = 'ref';
+    else {
+      g = 'cred';
+      creditOnline.BalanceDebt = 0;
+    }
+
+    form_data.append('cred_grp', 'potr'); // потребительский кредит
+    form_data.append('goal', g); // цель кредита
+    form_data.append('amount', creditOnline.GetAmount()); // сумма кредита
+    form_data.append('amount_refin', creditOnline.GetBalanceDebt()); // сумма задолженности
+    form_data.append('amount_other', creditOnline.GetAdditionalAmount()); // дополнительная сумма
+    form_data.append('month', creditOnline.GetMaturityValue()); // дополнительная сумма
+    form_data.append('phone', creditOnline.GetPhone()); // номер телефона
+
+    let pt = creditOnline.GetAdditionalPhoneType();
+    if (pt == null) pt = '';
+    form_data.append('typephone2', pt); // тип доп. номера
+
+    form_data.append('phone2', creditOnline.GetAdditionalPhoneValue()); // дополнительно номер телефона
+    form_data.append('email', creditOnline.GetEmail()); // электронная почта
+    form_data.append('mar_state', creditOnline.GetFamilyStateValue()); // Семейное положение
+    form_data.append(
+      'children',
+      creditOnline.GetNumberOfChildrenUnder18Value()
+    ); // дети младще 18 лет
+    form_data.append('income', creditOnline.GetAmountOfIncome()); // сумма дохода
+    form_data.append('bank_acc_income', creditOnline.GetIsSalaryInBank()); // доход в банке
+
+    form_data.append('work_state', creditOnline.GetBusyStatusValue()); // статус занятости
+
+    let no = creditOnline.GetNameOfTheOrganization(); // наименование организации
+    let ea = creditOnline.GetEmployersAddress(); // адрес работодателя
+    let ei = creditOnline.GetEmployersINN(); // ИНН организации работодателя
+    let ce = creditOnline.GetCurrentWorkExperienceValue(); // стаж (месяцы)
+
+    if (
+      creditOnline.GetBusyStatusValue() == 'work' ||
+      creditOnline.GetBusyStatusValue() == 'workPens'
+    ) {
+      form_data.append('org_name', no); // наименование организации
+      form_data.append('org_address', ea); // адрес работодателя
+      form_data.append('org_inn', ei); // ИНН организации работодателя
+      form_data.append('exp_month', ce); // стаж (месяцы)
+    } else {
+      no = '';
+      ea = '';
+      ei = '';
+      ce = '';
+
+      form_data.append('org_name', no); // наименование организации
+      form_data.append('org_address', ea); // адрес работодателя
+      form_data.append('org_inn', ei); // ИНН организации работодателя
+      form_data.append('exp_month', ce); // стаж (месяцы)
+    }
+
+    form_data.append('depart', creditOnline.GetOfficeForReceivingCreditValue()); // офис
+    form_data.append(
+      'calltime',
+      creditOnline.GetTheTimeWhenYouCanContactTheClientValue()
+    ); // время
+    form_data.append('comment', creditOnline.GetCommentMessage()); // комментарий к заявке
+    form_data.append(
+      'agree_pers',
+      creditOnline.GetIsConsentToTheProcessingOfPersonalData()
+    ); // согласие на обработку персональных данных
+    form_data.append(
+      'agree_bki',
+      creditOnline.GetIsConsentToTheRequestOfTheBCH()
+    ); // согласие на запрос в БКИ
+    form_data.append(
+      'agree_pr',
+      creditOnline.GetIsConsentToAdvertisingMaterial()
+    ); // согласие на рекламный материал
+    form_data.append('guid', creditOnline.GetGuid()); // guid
+    //----------------------------------------------------------------------------------
+
+    // alert('тест');
+    // return;
+
+    // getFilesFormData(FileStore.files, form_data);
+
+    $(creditOnline__form).addClass(creditOnline__displayNone);
+
+    creditOnline__resultMessageClear();
+
+    creditOnline__resultMessageShow();
+
+    creditOnline__resultMessageSetStatusSuccess();
+
+    creditOnline__scrollingToDist(creditOnline__resultMessageId);
+
+    creditOnline__resultMessageAddText(
+      'Заявка отправляется, пожалуйста подождите...'
+    );
+
+    creditOnline__resultMessageAddProgressBar();
+
+    setTimeout(() => {
+      creditOnline__ajaxPost(form_data); // отправка данных на сервер
+    }, 4 * 1000);
+  } else {
+    creditOnline__resultMessageSetStatusFail();
+
+    creditOnline__resultMessageAddTextToTop(
+      creditOnline__messages.divider.line
+    );
+
+    creditOnline__resultMessageAddTextToTop(
+      'Для успешного оформления заявки необходимо корректно заполнить все поля'
+    );
+
+    creditOnline__resultMessageAddTextToTop(
+      '<b>Внимание!</b> Некоторые поля заполнены <b>неверно</b> или <b>пусты</b>.'
+    );
+
+    creditOnline__resultMessageAddText(
+      'Поля помеченные красным заполнены <b>неверно</b> или <b>пусты</b>'
+    );
+
+    creditOnline__scrollingToDist(creditOnline__resultMessageId);
+    creditOnline__resultMessageShow();
+  }
+}
+
+/**
+ * Осуществление отправки ajax-запроса
+ * @param {object} formData объект с данными формы
+ */
+function creditOnline__ajaxPost(formData) {
+  $.ajax({
+    type: 'POST',
+    url: creditOnline__uploadURL,
+    async: true,
+
+    data: formData,
+
+    dataType: 'json',
+
+    processData: false,
+    contentType: false,
+    cache: false,
+
+    success: function (data) {
+      creditOnline__resultMessageClear();
+
+      creditOnline__resultMessageShow();
+
+      creditOnline__resultMessageSetStatusSuccess();
+
+      creditOnline__resultMessageAddText('Заявка оформлена успешно');
+
+      if (data.status == true) {
+      }
+
+      if (data.msg && data.msg.length > 0) {
+        $.each(data.msg, function (key, field) {
+          if (field.type == true) {
+            console.log('Ответ сервера: ' + field.text);
+          } else {
+            console.log('Ответ сервера: ' + field.text);
+          }
+        });
+      }
+    },
+  });
+}
+
+//--------------------------------------------------------------------------
+
+/**
+ * проверяет не выходит ли значение поля
+ * за установленные допустимые значения мин и макс
+ * @param {string} id идентификатор html элемента
+ * @param {number} min минимум
+ * @param {number} max максимум
+ * @returns возвращает true, если допустимо; false, в противном случае
+ */
+function creditOnline__isRangeField(id, min, max) {
+  let value = creditOnline__getNumWithoutSpacesById(id);
+  let valueMin = min;
+  let valueMax = max;
+  if (valueMin <= value && value <= valueMax) return true;
+  return false;
+}
+
+/**
+ * возвращает число без пробелов
+ * @param {string} s страка с пробелами
+ * @returns возвращает число без пробелов
+ */
+function creditOnline__getNumWithoutSpaces(s) {
+  return (s = s.replace(/\s/g, ''));
+}
+
+/**
+ * возвращает число без пробелов
+ * @param {string} id идентификатор html элемента
+ * @returns возвращает число без пробелов
+ */
+function creditOnline__getNumWithoutSpacesById(id) {
+  let res = $(id).val();
+  res = res.replace(/\s/g, '');
+  res = parseInt(res);
+  return res;
+}
+
+/**
+ * разбить число на рязряды
+ * @param {string} id идентификатор html элемента
+ */
+function creditOnline__dischargeById(id) {
+  let S = creditOnline__getNumWithoutSpacesById(id);
+  if (S === S) {
+    // если S - число
+    S = creditOnline__sdf_FTS(+S, 0, ' ');
+    $(id).val(S);
+  }
+}
+
+/**
+ * приводит число {_number} к точности {_decimal}
+ * и устанавливает разделители разрядов {_separator}
+ * @param {string} _number приводимое исходное число (строка)
+ * @param {number} _decimal точность (число знаков после запятой)
+ * @param {string} _separator разделитель разрядов
+ * @returns возвращает отформатированное число с разделителями разрядов
+ */
+function creditOnline__sdf_FTS(_number, _decimal, _separator) {
+  let decimal = typeof _decimal != 'undefined' ? _decimal : 2; // если тип значения {_decimal} определен, то {_decimal} = 2
+
+  let separator = typeof _separator != 'undefined' ? _separator : ''; // если тип значения {_separator} определен, {_separator} = 2
+
+  let r = parseFloat(_number); // преобразуем {_number} в вещественное число
+
+  let exp10 = Math.pow(10, decimal); // возвести 10 в степень decimal
+
+  r = Math.round(r * exp10) / exp10; // округлить
+
+  rr = Number(r).toFixed(decimal).toString().split('.'); // округлить до decimal знаков после запятой и установить разделитель разрядов {'.'} - точка
+
+  b = rr[0].replace(/(\d{1,3}(?=(\d{3})+(?:\.\d|\b)))/g, '$1' + separator); // с помощью регулярного выражения вставляем {separator} (пробелы), в качестве разделителя разрядов
+
+  r = rr[1] ? b + '.' + rr[1] : b; // вставляем разделитель только если он нужен
+
+  return r; // возвращает отформатированное число с разделителями разрядов
+}
+
+/**
+ * разрешает ввод только цифр
+ * @param {string} id идентификатор html элемента
+ * @param {number} min минимум
+ * @param {number} max максимум
+ */
+function creditOnline__onlyDigitInput(id, min, max) {
+  $(id).keypress(function (e) {
+    if (
+      e.which != 8 &&
+      e.which != 0 &&
+      e.which != 46 &&
+      (e.which < 48 || e.which > 57)
+    ) {
+      return false;
+    }
+  });
+  $(id).keyup(function (e) {
+    if (
+      e.which != 8 &&
+      e.which != 0 &&
+      e.which != 46 &&
+      (e.which < 48 || e.which > 57)
+    ) {
+      return false;
+    }
+
+    creditOnline__onChangeField(id, min, max);
+    // dischargeById(id);
+  });
+}
+
+/**
+ * обработчик события изменения размера поля
+ * @param {string} id идентификатор html элемента
+ * @param {number} min минимум
+ * @param {number} max максимум
+ */
+function creditOnline__onChangeField(id, min, max) {
+  let value = creditOnline__getNumWithoutSpacesById(id); // разряды
+  let valueMin = min;
+  let valueMax = max;
+
+  if (value > valueMax) {
+    // если больше максимума
+    value = valueMax; // = максимум
+    $(id).val(value);
+    creditOnline__dischargeById(id);
+    return;
+  }
+
+  // if (value < valueMin) { // если меньше минимума
+  //   value = valueMin; // = минимум
+  //   $(id).val(value);
+  //   dischargeById(id);
+  //   return;
+  // }
+
+  creditOnline__dischargeById(id);
+}
+
+//--------------------------------------------------------------------------
+
+/**
+ * Добавить маску ввода для поля
+ * @param {string} id идентификатор html элемента
+ * @param {number} min минимум
+ * @param {number} max максимум
+ */
+function creditOnline__addFieldMask(id, min, max) {
+  $(id).val(min);
+  creditOnline__dischargeById(id);
+  creditOnline__onlyDigitInput(id, min, max);
+}
+
+/**
+ * Начальные значения по маске
+ */
+function creditOnline__startedMaskVal() {
+  creditOnline__addPhoneMask(creditOnline__phoneName);
+  creditOnline__addPhoneMask(creditOnline__additionalPhoneValueName);
+
+  creditOnline__addAmountMask(creditOnline__amount);
+  creditOnline__addFieldMask(creditOnline__amount, MIN_AMOUNT, MAX_AMOUNT);
+
+  creditOnline__addAmountMask(creditOnline__additionalAmount);
+  creditOnline__addFieldMask(creditOnline__additionalAmount, 0, MAX_AMOUNT);
+
+  creditOnline__addAmountMask(creditOnline__balanceDebt);
+  creditOnline__addFieldMask(creditOnline__balanceDebt, 0, MAX_AMOUNT);
+
+  creditOnline__addAmountMask(creditOnline__amountOfIncome);
+  creditOnline__addFieldMask(creditOnline__amountOfIncome, 0, MAX_AMOUNT);
+
+  creditOnline__addMaturityMask(creditOnline__maturity);
+  creditOnline__addFieldMask(
+    creditOnline__maturity,
+    MIN_MATURITY,
+    MAX_MATURITY
+  );
+
+  creditOnline__addINNMask(creditOnline__employersINN);
+
+  creditOnline__toHideTheElement('.credit-online__ref');
+  creditOnline__toHideTheElement('.credit-online__isAdditionalAmount');
+  creditOnline__toHideTheElement('.credit-online__additionalPhoneValue');
+
+  creditOnline__toHideTheElement('.credit-online__additionalAmount');
+
+  creditOnline__toHideTheElement(creditOnline__busyStatusWorker);
+
+  creditOnline.SetMinAmount(MIN_AMOUNT);
+  creditOnline.SetMaxAmount(MAX_AMOUNT);
+}
+
+/**
+ * Проверка на существование заявки
+ * @returns true если токен уже существует false в противном случае
+ */
+function creditOnline__isTokenExists() {
+  if ($(creditOnline__tokenExists).text().length > 0) {
+    console.log('Заявка уже существует!');
+    return true;
+  } else {
+    return false;
+  }
+}
+
+/**
+ * Проверка на валидность токена
+ * @returns false если токен валиден true в противном случае
+ */
+function creditOnline__isTokenValid() {
+  if ($(creditOnline__tokenInvalid).text() > 0) {
+    console.log('Невалидный токен');
+    return false;
+  } else {
+    console.log('Валидный токен');
+    return true;
+  }
+}
+
+/**
+ * Установить подсказку
+ * @param {string} selector html-селектор для наведения на элемент
+ * @param {string} htmlText выводимый текст в html-тегах
+ * @param {string} direction направление привязки
+ * @param {boolean} mouseFollow следовать за мышью
+ * @param {boolean} mousePopup при наведении мыши
+ * @param {boolean} smart умное размещение
+ * @param {boolean} _manual ручной запуск
+ */
+function creditOnline__setHint(
+  selector,
+  htmlText,
+  direction,
+  mouseFollow,
+  mousePopup,
+  smart,
+  _manual
+) {
+  if (mouseFollow === undefined) {
+    mouseFollow = false;
+  }
+
+  if (mousePopup === undefined) {
+    mousePopup = true;
+  }
+
+  if (smart === undefined) {
+    smart = true;
+  }
+
+  if (_manual === undefined) {
+    _manual = false;
+  }
+
+  if (!_manual) {
+    $(selector).data('powertipjq', $([htmlText].join('\n')));
+    $(selector).powerTip({
+      placement: direction,
+      mouseOnToPopup: mousePopup,
+      smartPlacement: smart,
+      followMouse: mouseFollow,
+      manual: _manual,
+    });
+  }
+
+  if (_manual) {
+    // $(selector).on({
+    //   mouseenter: function (event) {
+    //     $.powerTip.show($(selector));
+    //   },
+    //   mouseleave: function () {
+    //     $.powerTip.show($(selector));
+    //   },
+    // });
+    // let $tooltip = $(selector).powerTip({
+    //   manual: true,
+    //   placement: direction
+    // });
+
+    $(selector).on('focus mouseup keyup', function () {
+      // var tooltipText = 'Message!';
+      // $(selector).data('powertip', htmlText);
+      $(selector).data('powertipjq', $([htmlText].join('\n')));
+      $(selector).powerTip({
+        placement: direction,
+        mouseOnToPopup: mousePopup,
+        smartPlacement: smart,
+        followMouse: mouseFollow,
+        manual: _manual,
+      });
+      $(selector).powerTip('show'); // Trigger show
+      // $.powerTip.show($(selector));
+    });
+
+    $(selector).on('input change blur', function () {
+      $(selector).powerTip('hide', true); // Hide element immediately with no delay
+      // $(selector).blur(); 
+      // $.powerTip.hide();
+    });
+  }
+}
+
+/**
+ * Запуск системы всплывающих подсказок
+ */
+function creditOnline__powerTipStart() {
+  $(function () {
+    // // mouse-on examples
+    $.fn.powerTip.smartPlacementLists.e = ['e', 's'];
+    $.fn.powerTip.smartPlacementLists.w = ['w', 's'];
+
+    // идентификатор
+    creditOnline__setHint(
+      '.guid',
+      '<p class="m-0 p-0">Этот специальный код,</p><p class="m-0 p-0">полученный через систему ЕСИА,</p><p class="m-0 p-0">позволяет связать ваши персональные данные с Банком</p>',
+      creditOnline__direction.south,
+      true,
+      true,
+      true
+    );
+
+    // кнопка отправки
+    creditOnline__setHint(
+      creditOnline__sendBtn,
+      '<p class="m-0 p-0">Нажмните эту кнопку,</p><p class="m-0 p-0">чтобы отправить заявку</p>',
+      creditOnline__direction.east
+    );
+
+    // согласие на обработку перс. данных
+    creditOnline__setHint(
+      '.credit-online__isConsentToTheProcessingOfPersonalData',
+      '<p class="m-0 p-0">Без вашего согласия</p><p class="m-0 p-0">на обработку персональных данных,</p><p class="m-0 p-0">заявка не может быть отправлена</p>',
+      creditOnline__direction.west
+    );
+
+    // комментарий к заявке
+    creditOnline__setHint(
+      '.credit-online__commentMessage',
+      '<p class="m-0 p-0">Максимальная длина ' +
+        CREDIT_ONLINE_MAX_LENGTH_COMMENT_MESSAGE +
+        ' символов</p>',
+      creditOnline__direction.west
+    );
+
+    // сумма кредита
+    creditOnline__setHint(
+      '.credit-online__amount',
+      '<p class="m-0 p-0">' +
+        creditOnline__messages.amount.limits.min.textStart +
+        creditOnline__messages.amount.limits.min.value +
+        creditOnline__messages.amount.limits.min.textEnd +
+        '</p>' +
+        '<p class="m-0 p-0">' +
+        creditOnline__messages.amount.limits.max.textStart +
+        creditOnline__messages.amount.limits.max.value +
+        creditOnline__messages.amount.limits.max.textEnd +
+        '</p>' +
+        '<hr class="hr-white--height-1px m-0 p-0 w-100">' +
+        '<p class="m-0 p-0">Допустимо: <b>только цифры</b></p>',
+      creditOnline__direction.west
+    );
+
+    // остаток ссудной задолженности
+    creditOnline__setHint(
+      '.credit-online__balanceDebt',
+      '<p class="m-0 p-0">' +
+        creditOnline__messages.balanceDebt.limits.min.textStart +
+        creditOnline__messages.balanceDebt.limits.min.value +
+        creditOnline__messages.balanceDebt.limits.min.textEnd +
+        '</p>' +
+        '<p class="m-0 p-0">' +
+        creditOnline__messages.balanceDebt.limits.max.textStart +
+        creditOnline__messages.balanceDebt.limits.max.value +
+        creditOnline__messages.balanceDebt.limits.max.textEnd +
+        '</p>' +
+        '<hr class="hr-white--height-1px m-0 p-0 w-100">' +
+        '<p class="m-0 p-0">Допустимо: <b>только цифры</b></p>',
+      creditOnline__direction.east
+    );
+
+    // срок кредита в месяцах
+    creditOnline__setHint(
+      '.credit-online__maturity',
+      '<p class="m-0 p-0">' +
+        creditOnline__messages.maturity.limits.min.textStart +
+        creditOnline__messages.maturity.limits.min.value +
+        creditOnline__messages.maturity.limits.min.textEnd +
+        '</p>' +
+        '<p class="m-0 p-0">' +
+        creditOnline__messages.maturity.limits.max.textStart +
+        creditOnline__messages.maturity.limits.max.value +
+        creditOnline__messages.maturity.limits.max.textEnd +
+        '</p>' +
+        '<hr class="hr-white--height-1px m-0 p-0 w-100">' +
+        '<p class="m-0 p-0">Допустимо: <b>только цифры</b></p>',
+      creditOnline__direction.west,
+      // false,
+      // true,
+      // true,
+      // true
+    );
+  });
+}
+
+/**
+ * Привязка обработчиков событий получения фокуса инпутом
+ * @param {string} id html-селектор
+ */
+function creditOnline__handleEventFocusById(id) {
+  $(id).on('focus', function (e) {
+    switch (id) {
+      case creditOnline__amount:
+        // сумма кредита
+
+        $.powerTip.show($('.credit-online__amount'));
+
+        // console.log('focus');
+        break;
+      case creditOnline__maturity:
+        $.powerTip.show($('.credit-online__maturity'));
+
+        // console.log('focus');
+        break;
+
+      default:
+        break;
+    }
+  });
+}
+
+/**
+ * Привязка обработчиков событий клике
+ * @param {string} id html-селектор
+ */
+function creditOnline__handleEventClickById(id) {
+  $(id).on('click', function (e) {
+    switch (id) {
+      case creditOnline__amount:
+        // сумма кредита
+        // $('.credit-online__amount').powerTip({ manual: true,
+        //   mouseleave: function () {
+        //     $.powerTip.show($(selector));
+        //   } });
+
+        $.powerTip.show($('.credit-online__amount'));
+
+        break;
+      case creditOnline__maturity:
+        // сумма кредита
+        $.powerTip.show($('.credit-online__maturity'));
+
+        break;
+
+      default:
+        break;
+    }
+  });
+}
+
+/**
+ * Привязка обработчиков событий потери фокуса инпутом
+ * @param {string} id html-селектор
+ */
+function creditOnline__handleEventBlurById(id) {
+  $(id).on('blur', function (e) {
+    switch (id) {
+      case creditOnline__amount:
+        $.powerTip.hide();
+        break;
+      case creditOnline__maturity:
+        $.powerTip.hide();
+        break;
+
+      default:
+        break;
+    }
+  });
+}
+
+$(document).ready(function () {
+  if ($(creditOnline__tokenInvalid).text() <= 0)
+    if (!creditOnline__isTokenExists()) {
+      creditOnline = new PotrebCreditOnline();
+
+      creditOnline__dataListLoader();
+
+      creditOnline__startedMaskVal();
+
+      creditOnline__handlersStart();
+
+      creditOnline__powerTipStart();
+    }
+});

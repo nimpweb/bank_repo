@@ -1,0 +1,120 @@
+.settings-fixed {
+    position: absolute; 
+    top: 300px; 
+    right: 15px; 
+    z-index: 1000; 
+    display: flex;
+    margin: 0;
+    padding: 0;
+    color: #fff;
+    font-size: 18px;
+    line-height: 18px;
+    justify-content: center;
+    background-color: #007fbd;
+    cursor: pointer;
+    padding:  1rem;
+    height: auto;
+    text-transform: uppercase;
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    text-align: center;
+    border: 2px solid white;
+
+    border-radius: 10px;
+    user-select: none;
+    /* font-weight: bold; */
+      /* border-radius: 50%; */
+    
+    /* box-shadow: -30px -30px 0 0 red,
+    30px 30px 0 0 blue,
+    -30px 30px 0 0 yellow,
+    30px -30px 0 0 grey,
+    0 -45px 0 0 orange,
+    0 45px 0 0 aqua,
+    45px 0 0 0 brown,
+    -45px 0 0 0 crimson; */
+
+    /* scale: 1; */
+    transform-origin: center;
+    transition: 0.5s ease-in-out all;
+
+
+
+    /* Анимация объекта начало */
+    /* -webkit-animation-name: rotation;
+    -webkit-animation-duration: 10s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-name: rotation;
+    -moz-animation-duration: 10s;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: linear;
+    -o-animation-name: rotation;
+    -o-animation-duration: 10s;
+    -o-animation-iteration-count: infinite;
+    -o-animation-timing-function: linear;
+    animation-name: rotation;
+    animation-duration: 10s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear; */
+    /* Анимация объекта начало */
+}
+.settings-fixed:hover {
+    /* scale: 0.7;
+    transform-origin: center; */
+    /* width: 75px;
+    height: 450px; */
+    background-color: #dbf0fc;
+    color: #007fbd;
+    box-shadow: 0px 0px 2px 2px #007fbd;
+}
+
+/* Анимация объекта начало */
+/* @-o-keyframes rotation {
+    0% {
+        -webkit-transform:rotate(0deg);
+        -moz-transform:rotate(0deg);
+        -o-transform:rotate(0deg);
+        transform:rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform:rotate(360deg);
+        -moz-transform:rotate(360deg);
+        -o-transform:rotate(360deg);
+        transform:rotate(360deg);
+    }
+}
+
+@keyframes rotation {
+    0% {
+        -webkit-transform:rotate(0deg);
+        -moz-transform:rotate(0deg);
+        -o-transform:rotate(0deg);
+        transform:rotate(0deg);
+    }
+    100% {
+        -webkit-transform:rotate(360deg);
+        -moz-transform:rotate(720deg);
+        -o-transform:rotate(360deg);
+        transform:rotate(360deg);
+    }
+} */
+
+/* Анимация объекта конец */
+
+/* Вертикальный текст начало */
+.vertical{
+    writing-mode:tb-rl;
+    -webkit-transform:rotate(90deg);
+    -moz-transform:rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform:rotate(90deg);
+    transform: rotate(90deg);
+    white-space:nowrap;
+    display:block;
+    /* bottom:0;
+    width:20px;
+    height:20px; */
+}
+/* Вертикальный текст конец */

@@ -1,0 +1,26 @@
+.pagination-links {
+    font-weight: 100 !important;
+    font-family: roboto;    
+}
+.pagination-links a {
+    transition: 0.5s ease-in-out all;
+    text-decoration: none;    
+  }
+  
+  .pagination-links a:visited {
+  }
+  
+  .pagination-links a:hover {
+    color: #cc0000;
+    text-decoration: none;
+  }
+
+  .bold {
+    font-weight: bold;
+  }
+
+  a.fs-paginator {
+    font-size: 24px !important;
+    line-height: 1 !important;
+  }
+

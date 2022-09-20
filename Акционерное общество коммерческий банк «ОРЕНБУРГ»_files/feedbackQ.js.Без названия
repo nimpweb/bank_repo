@@ -1,0 +1,1076 @@
+// begin
+
+const MAX_LENGTH_MESSAGE_TEXT = 2000; // максимальная длина текстового сообщения клиента
+const MAX_LENGTH_NAME = 255; // максимальная длина имени клиента
+const MAX_LENGTH_EMAIL = 255; // максимальная длина электронной почты клиента
+
+const MAX_ALL_FILE_SIZE = 15728640; // 15 мб
+
+// const uploadURL = 'https://promo.orbank.ru/local/components/feedback/upload.php';
+const uploadURL =  '/local/components/feedback/uploadFromFeedback.php';
+
+const btnSend = '#feedback-btn-send'; // идентификатор кнопки "Отправить"
+const purposeOfTheAppeal = '#askQuestionModalCelObrashenia'; // идентификатор цели обращения
+const subjectOfTheAppeal = '#askQuestionModalTemaObrashenia'; // идентификатор темы обращения
+const isClient = '#klientBanka'; // идентификатор клиента банка
+const isNotClient = '#neKlientBanka'; // идентификатор не клиента банка
+const getAnswerToPhone = '#otvetNaMobileTel'; // идентификатор "Хочу получить ответ на мобильный телефон"
+const getAnswerToEmail = '#otvetNaEmail'; // идентификатор "Хочу получить ответ на электронную почту"
+const getAnswerToPersonallyContact = '#otvetLichno'; // идентификатор "Хочу получить ответ при личном обращении в офис Банка"
+const consentToTheProcessingOfPersonalData = '#soglasieAskModal'; // идентификатор "Согласие на обработку персональных данных"
+const name = '#askQuestionModalName'; // идентификатор "Как к Вам обращаться?"
+const phone = '#askQuestionModalTelNumber'; // идентификатор "Номер мобильного телефона"
+const email = '#askQuestionModalEmail'; // идентификатор "Электронная почта"
+const messageText = '#messageText'; // идентификатор "Текст обращения"
+const filesId = '#askQuestionDocs'; // идентификатор "Списка загружаемых файлов"
+const resultMessageId = '#resultMessageId'; // идентификатор результа ответа
+
+var errorClass = 'hasError'; // hasError-box CSS-класс ошибки
+
+var fileNames = []; // имена отправляемых файлов
+var err = 0; // счётчик ошибок
+var errFile = 0; // счётчик ошибок
+
+const FileStore = {
+  files: [], // хранищие файлов
+};
+
+// при выборе файлов, мы будем их добавлять
+function handleChange(e) {
+  // если не выбрали файл и нажали отмену, то ничего не делать
+  if (!e.target.files.length) {
+    return;
+  }
+
+  // создаем новый массив с файлами
+  const files = Object.keys(e.target.files).map((i) => e.target.files[i]);
+
+  addFiles(files); // добавляем файлы в хранилище
+
+  // очищаем input, т.к. файл сохранён
+  e.target.value = '';
+}
+
+function addFiles(files) {
+  // добавляем файлы в общую кучу
+  FileStore.files = FileStore.files.concat(files);
+}
+
+// удалить файл из хранилища, например по индексу в массиве
+function removeFile(index) {
+  // удаляем файл по индексу
+  //e.preventDefault();
+  FileStore.files.splice(index, 1);
+  console.log('Удалён файл с индексом: ' + index);
+
+  // отобразить список текущих файлов в файлохранилище на форму
+  viewFileList();
+}
+
+// если надо послать файлы на сервер, формируем FormData с файлами
+// const formData = getFilesFormData(FileStore.files, form_Data);
+function getFilesFormData(files, formData) {
+  //const formData = new FormData();
+
+  files.map((file, index) => {
+    // formData.append(`file${index + 1}`, file);
+    formData.append('file[]', file);
+  });
+
+  // return formData;
+}
+
+/**
+ * Класс "Обратная связь"
+ */
+class FeedBackDataSender {
+  /**
+   * Идентификатор объекта
+   * @type {null}
+   */
+  Id = null;
+
+  /**
+   * Объект "Цель обращения"
+   * {Value} - текущее значение цели обращения
+   * {Text} - текущий текст цели обращения
+   * @type {Value: number, Text: string}
+   */
+  Purpose = { Value: null, Text: '' };
+
+  /**
+   * Объект "Тема обращения"
+   * {Value} - текущее значение цели обращения
+   * {Text} - текущий текст цели обращения
+   * @type {Value: number, Text: string}
+   */
+  Subject = { Value: null, Text: '' };
+
+  /**
+   * Клиент банка
+   * @type {boolean}
+   */
+  Client = false;
+
+  /**
+   * Имя клиента
+   * @type {string}
+   */
+  Name = '';
+
+  /**
+   * Номер телефона
+   * @type {string}
+   */
+  Phone = '';
+
+  /**
+   * Электронная почта
+   * @type {string}
+   */
+  Email = '';
+
+  /**
+   * Объект "Получение ответа"
+   * {OnPhone} - Хочу получить ответ на мобильный телефон
+   * {OnEmail} - Хочу получить ответ на электронную почту
+   * {OnFaceToFace} - Хочу получить ответ при личном обращении в офис Банка
+   * @type {OnPhone: boolean, OnEmail: boolean, OnFaceToFace: boolean}
+   */
+  AnswerTo = { OnPhone: false, OnEmail: false, OnFaceToFace: false };
+
+  /**
+   * Согласие на обработку персональных данных
+   * @type {boolean}
+   */
+  Approval = false;
+
+  /**
+   * Текстовое сообщение
+   * {Text} - Текст сообщения
+   * {Size} - Размер сообщения
+   * @type {Text: boolean, Size: number}
+   */
+  Message = { Text: '', Size: MAX_LENGTH_MESSAGE_TEXT };
+
+  /**
+   * Файлы
+   * {Data} - массив с данными
+   * @type {Data: Array}
+   */
+  Files = { Data: null };
+
+  /**
+   * Конструктор класса FeedBackDataSendler
+   */
+  constructor() {
+    this.Id = this; // Установить идентификатор текущего объекта
+  }
+
+  /**
+   * Метод устанавливает текст сообщения
+   * @text оригинальный текст
+   */
+  SetMessageText(text) {
+    if (text.length <= this.Message.Size) {
+      this.Message.Text = text;
+      return;
+    } else {
+      text = text.substring(0, this.Message.Size - 3);
+      this.Message.Text = text + '...';
+      return;
+    }
+  }
+
+  /**
+   * Метод устанавливает имя клиента
+   * @text имя клиента
+   */
+  SetName(text) {
+    if (text.length <= MAX_LENGTH_NAME) {
+      this.Name = text;
+      return;
+    } else {
+      text = text.substring(0, MAX_LENGTH_NAME - 3);
+      this.Name = text + '...';
+      return;
+    }
+  }
+
+  /**
+   * Метод устанавливает электронную почту клиента
+   * @text электронная почта клиента
+   */
+  SetEmail(text) {
+    if (text.length <= MAX_LENGTH_EMAIL) {
+      this.Email = text;
+      return;
+    } else {
+      text = text.substring(0, MAX_LENGTH_EMAIL - 3);
+      this.Email = text + '...';
+      return;
+    }
+  }
+
+  /**
+   * Метод обновляет привязку данных от представления к свойствам объекта
+   */
+  RefreshBindingData() {
+    // this.Name = $(name).val(); // имя
+
+    // this.Phone = $(phone).val(); // телефон
+
+    // this.Email = $(email).val(); // электронная почта
+
+    this.SetName($(name).val()); // имя
+
+    this.Phone = $(phone).val(); // телефон
+
+    this.SetEmail($(email).val()); // электронная почта
+
+    this.SetMessageText($(messageText).val()); // текст сообщения
+
+    if (isCheckboxById(isClient)) {
+      // клиент банка
+      this.Client = true;
+    } else {
+      this.Client = false;
+    }
+
+    // if (isCheckboxById(isNotClient)) { // не клиент банка
+    //   this.Client = false;
+    // }
+
+    if (isCheckboxById(getAnswerToPhone)) {
+      // ответ на телефон
+      this.AnswerTo.OnPhone = true;
+    } else {
+      this.AnswerTo.OnPhone = false;
+    }
+
+    if (isCheckboxById(getAnswerToEmail)) {
+      // ответ на email
+      this.AnswerTo.OnEmail = true;
+    } else {
+      this.AnswerTo.OnEmail = false;
+    }
+
+    if (isCheckboxById(getAnswerToPersonallyContact)) {
+      // ответ лично
+      this.AnswerTo.OnFaceToFace = true;
+    } else {
+      this.AnswerTo.OnFaceToFace = false;
+    }
+
+    if (isCheckboxById(consentToTheProcessingOfPersonalData)) {
+      // согласие на обработку персональных данных
+      this.Approval = true;
+    } else {
+      this.Approval = false;
+    }
+  }
+}
+
+var feedback = new FeedBackDataSender();
+
+var askQuestionModalCelObrashenia = [
+  { text: 'Задать вопрос', value: 1 },
+  { text: 'Предложить идею', value: 2 },
+  { text: 'Выразить благодарность', value: 3 },
+  { text: 'Заказать обратный звонок', value: 4 },
+  { text: 'Иное', value: 5 },
+];
+
+var askQuestionModalTemaObrashenia = [
+  { text: 'Кредиты/кредитные карты', value: 1 },
+  { text: 'Вклады и счета', value: 2 },
+  { text: 'Дебетовые карты', value: 3 },
+  { text: 'Школьное питание', value: 4 },
+  { text: 'Переводы между счетами', value: 5 },
+  { text: 'Переводы по картам', value: 6 },
+  { text: 'Переводы по платежным системам', value: 7 },
+  { text: 'Система быстрых платежей', value: 8 },
+  { text: 'Дистанционное банковское обслуживание', value: 9 },
+  { text: 'Тарифы', value: 10 },
+  { text: 'Иное', value: 11 },
+];
+
+// $('input:radio').change(function () {
+
+// $('input:checkbox').change(function () {
+
+// принимает один параметр {id} - идентификатор радиокнопки
+function isCheckboxById(id) {
+  // if ($('#' + id).prop('checked')) {
+  if ($(id).prop('checked')) {
+    return true;
+  } else return false;
+}
+
+//метод переключает видимость элемента по имени идентификатора idElementToHidden в html разметке
+function toHideOrUnHideElement(idElementToHidden) {
+  var d = document.getElementById(idElementToHidden);
+  if (d.style.display == 'none') {
+    $('#' + idElementToHidden).show();
+    return;
+  }
+  $('#' + idElementToHidden).hide();
+}
+//метод скрыват элемент по имени идентификатора idElementToHide в html разметке
+function toHideTheElement(idElementToHide) {
+  //var d = document.getElementById(idElementToHide);
+  $('#' + idElementToHide).hide();
+}
+
+//метод показывает скрытый элемент по имени идентификатора idElementToUnHide в html разметке
+function toUnHideTheElement(idElementToUnHide) {
+  //var d = document.getElementById(idElementToUnHide);
+  $('#' + idElementToUnHide).show();
+}
+
+// if (isCheckById("checkbox8")) {
+//   $("#checkbox5").prop("checked", false);
+//   $("#checkbox6").prop("checked", false);
+//   $("#checkbox7").prop("checked", false);
+//   // $("#checkbox9").prop("checked", false);
+
+//   $("#checkbox5").prop("disabled", true);
+
+function postData() {
+  var file;
+  var files = btoa(file);
+  var targetUrl = 'mail/sendMail.php';
+  $.post(
+    targetUrl,
+    {
+      data: files,
+      fileName: 'test',
+      emailTo: 'emailTo',
+    },
+    function (response, status) {
+      console.log(response);
+      alert(response);
+    }
+  );
+}
+
+function dataPreloader() {
+  $(purposeOfTheAppeal).ddslick({
+    data: askQuestionModalCelObrashenia,
+    width: '100%',
+    selectText: 'Цель обращения',
+    onSelected: function (data) {
+      // if (data.selectedIndex > 0) {
+      feedback.Purpose.Value = data.selectedData.value;
+      feedback.Purpose.Text = data.selectedData.text;
+
+      postSelectChecker(
+        purposeOfTheAppeal,
+        feedback.Purpose.Value,
+        'hasError-box',
+        'hasSuccess-box'
+      );
+      // handleEventChangeById(purposeOfTheAppeal);
+
+      // }
+    },
+  });
+
+  $(subjectOfTheAppeal).ddslick({
+    data: askQuestionModalTemaObrashenia,
+    width: '100%',
+    selectText: 'Тема обращения',
+    onSelected: function (data) {
+      feedback.Subject.Value = data.selectedData.value;
+      feedback.Subject.Text = data.selectedData.text;
+
+      postSelectChecker(
+        subjectOfTheAppeal,
+        feedback.Subject.Value,
+        'hasError-box',
+        'hasSuccess-box'
+      );
+
+      // handleEventChangeById(subjectOfTheAppeal);
+    },
+  });
+
+  // клиент банка начало
+  if (isCheckboxById(isClient)) {
+    feedback.Client = true;
+  }
+
+  if (isCheckboxById(isNotClient)) {
+    feedback.Client = false;
+  }
+  // клиент банка конец
+
+  if (isCheckboxById(getAnswerToPhone)) {
+    feedback.AnswerTo.OnPhone = true;
+  }
+
+  if (isCheckboxById(getAnswerToEmail)) {
+    feedback.AnswerTo.OnEmail = true;
+  }
+
+  if (isCheckboxById(getAnswerToPersonallyContact)) {
+    feedback.AnswerTo.OnFaceToFace = true;
+  }
+
+  if (isCheckboxById(consentToTheProcessingOfPersonalData)) {
+    feedback.Approval = true;
+  }
+}
+
+function handleCheckboxChange() {
+  $(isClient).change(function (e) {
+    if (!isCheckboxById(isClient)) {
+      $(isClient).prop('checked', true);
+    }
+
+    if (isCheckboxById(isNotClient)) {
+      $(isNotClient).prop('checked', false);
+      feedback.Client = false;
+    }
+
+    if (isCheckboxById(isClient)) {
+      feedback.Client = true;
+    }
+  });
+
+  $(isNotClient).change(function () {
+    if (!isCheckboxById(isNotClient)) {
+      $(isNotClient).prop('checked', true);
+      feedback.Client = false;
+    }
+
+    if (isCheckboxById(isClient)) {
+      $(isClient).prop('checked', false);
+      feedback.Client = true;
+    }
+
+    if (isCheckboxById(isNotClient)) {
+      feedback.Client = false;
+    }
+  });
+}
+
+function printScreenLog() {
+  console.log('-----------------------------------------------------');
+  console.log('Цель обращения');
+  console.log('feedback.Purpose.Text = ' + feedback.Purpose.Text);
+  console.log('feedback.Purpose.Value = ' + feedback.Purpose.Value);
+
+  console.log('-----------------------------------------------------');
+  console.log('Тема обращения');
+  console.log('feedback.Subject.Text = ' + feedback.Subject.Text);
+  console.log('feedback.Subject.Value = ' + feedback.Subject.Value);
+
+  console.log('-----------------------------------------------------');
+  console.log('Как к Вам обращаться');
+  console.log('feedback.Name = ' + feedback.Name);
+
+  console.log('-----------------------------------------------------');
+  console.log('Номер мобильного телефона');
+  console.log('feedback.Phone = ' + feedback.Phone);
+
+  console.log('-----------------------------------------------------');
+  console.log('Электронная почта');
+  console.log('feedback.Email = ' + feedback.Email);
+
+  console.log('-----------------------------------------------------');
+  console.log('Текст обращения');
+  console.log('feedback.Message.Text = ' + feedback.Message.Text);
+
+  console.log('-----------------------------------------------------');
+  console.log('Вы клиент банка?');
+  console.log('feedback.Client = ' + feedback.Client);
+
+  console.log('-----------------------------------------------------');
+  console.log('Сообщение на телефон');
+  console.log('feedback.AnswerTo.OnPhone = ' + feedback.AnswerTo.OnPhone);
+
+  console.log('-----------------------------------------------------');
+  console.log('Сообщение на электронную почту');
+  console.log('feedback.AnswerTo.OnEmail = ' + feedback.AnswerTo.OnEmail);
+
+  console.log('-----------------------------------------------------');
+  console.log('Сообщение персонально в офисе банка');
+  console.log(
+    'feedback.AnswerTo.OnFaceToFace = ' + feedback.AnswerTo.OnFaceToFace
+  );
+
+  console.log('-----------------------------------------------------');
+  console.log('Согласие на обработку персональных данных');
+  console.log('feedback.Approval = ' + feedback.Approval);
+}
+
+function handleBtnSendClick() {
+  $(btnSend).on('click', function (e) {
+    feedback.RefreshBindingData();
+    console.clear();
+    uploadData();
+    // printScreenLog();
+  });
+}
+
+function uploadajax(ttl, cl) {
+  // var fileList = $('#multiupload').prop('files');
+  // $('#prog' + cl)
+  //   .removeClass('loading-prep')
+  //   .addClass('upload-image');
+
+  var fileList = $(filesId);
+
+  var form_data = '';
+
+  form_data = new FormData();
+  form_data.append('upload_image', fileList[cl]);
+
+  var request = $.ajax({
+    url: uploadURL,
+    cache: false,
+    contentType: false,
+    processData: false,
+    async: true,
+    data: form_data,
+    type: 'POST',
+    xhr: function () {
+      var xhr = $.ajaxSettings.xhr();
+      if (xhr.upload) {
+        xhr.upload.addEventListener(
+          'progress',
+          function (event) {
+            var percent = 0;
+            if (event.lengthComputable) {
+              percent = Math.ceil((event.loaded / event.total) * 100);
+            }
+            // $('#prog' + cl).text(percent + '%');
+
+            console.log('#prog' + cl + ' = ' + percent + '%');
+          },
+          false
+        );
+      }
+      return xhr;
+    },
+    success: function (res, status) {
+      if (status == 'success') {
+        percent = 0;
+        $('#prog' + cl).text('');
+        $('#prog' + cl).text('--Success: ');
+        if (cl < ttl) {
+          uploadajax(ttl, cl + 1);
+        } else {
+          alert('Done');
+        }
+      }
+    },
+    fail: function (res) {
+      alert('Failed');
+    },
+  });
+}
+
+// вместо {true} и {false} возвращает,
+// соответственно {Да} и {Нет}
+function getBoolRus(flag) {
+  return flag ? 'Да' : 'Нет';
+}
+
+function uploadDataWithoutFiles() {
+  $.ajax({
+    type: 'POST',
+    url: uploadURL,
+    data: {
+      postName: feedback.Name,
+      postPhone: feedback.Phone,
+      postEmail: feedback.Email,
+      postPurposeValue: feedback.Purpose.Value,
+      postPurposeText: feedback.Purpose.Text,
+      postSubjectValue: feedback.Subject.Value,
+      postSubjectText: feedback.Subject.Text,
+      postIsClient: getBoolRus(feedback.Client),
+      postAnswerToPhone: getBoolRus(feedback.AnswerTo.OnPhone),
+      postAnswerToEmail: getBoolRus(feedback.AnswerTo.OnEmail),
+      postAnswerToFace: getBoolRus(feedback.AnswerTo.OnFaceToFace),
+      postApproval: getBoolRus(feedback.Approval),
+      postMessageText: feedback.Message.Text,
+    },
+
+    dataType: 'json',
+    success: function (data) {
+      if (data.status == true) {
+        // $('#md-resp-name').val('');
+        // $('#md-resp-phone').val('');
+        // $('#md-resp-theme option[value="default"]').prop('selected', true);
+      }
+
+      if (data.msg && data.msg.length > 0) {
+        //$('.md-resp-msg').fadeIn();
+        // alert-danger
+        // alert-success
+
+        // if ($('.md-resp-msg').hasClass('alert-danger')) {
+        //   $('.md-resp-msg').removeClass('alert-danger');
+        // }
+
+        // $('.md-resp-msg').addClass('alert-success');
+        // $('.md-resp-msg').removeClass('d-none');
+
+        $.each(data.msg, function (key, field) {
+          if (field.type == true) {
+            // $('.md-resp-msg').append(
+            //   '<p class="md-true">' + field.text + '</p>'
+            // );
+            console.log('Ответ сервера: ' + field.text);
+          } else {
+            console.log('Ответ сервера: ' + field.text);
+
+            // $('.md-resp-msg').append(
+            //   '<p class="md-error">' + field.text + '</p>'
+            // );
+          }
+        });
+      }
+    },
+  });
+}
+
+// Проверить
+function postFieldChecker(id, errorClass, successClass) {
+  if ($(id).val() == '') {
+    err++;
+    $(id).addClass(errorClass);
+    $(id).removeClass(successClass);
+  } else {
+    $(id).removeClass(errorClass);
+    $(id).addClass(successClass);
+  }
+}
+
+// проверка валидности электронной почты
+function isValidEmailAddress(emailAddress) {
+  var pattern =
+    /^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
+  return pattern.test(emailAddress);
+}
+
+// проверка валидности электронной почты
+function postPhoneChecker(id, errorClass, successClass) {
+  if ($(id).val() != '' && isValidPhone($(id).val())) {
+    $(id).removeClass(errorClass);
+    $(id).addClass(successClass);
+  } else {
+    err++;
+    $(id).addClass(errorClass);
+    $(id).removeClass(successClass);
+  }
+}
+
+// проверка валидности номера телефона
+function isValidPhone(phoneNumber) {
+  pattern = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
+  return pattern.test(phoneNumber);
+}
+
+// проверка валидности электронной почты
+function postEmailChecker(id, errorClass, successClass) {
+  if ($(id).val() != '' && isValidEmailAddress($(id).val())) {
+    $(id).removeClass(errorClass);
+    $(id).addClass(successClass);
+  } else {
+    err++;
+    $(id).addClass(errorClass);
+    $(id).removeClass(successClass);
+  }
+}
+
+// проверка заполнения ниспадающих списков
+function postSelectChecker(id, value, errorClass, successClass) {
+  if (value !== null) {
+    $(id).removeClass(errorClass);
+    $(id).addClass(successClass);
+  } else {
+    err++;
+    $(id).addClass(errorClass);
+    $(id).removeClass(successClass);
+  }
+}
+
+function handleEventChangeById(id) {
+  $(id).on('change', function (e) {
+    switch (id) {
+      case name:
+        postFieldChecker(name, 'hasError-box', 'hasSuccess-box');
+        break;
+      case phone:
+        postFieldChecker(phone, 'hasError-box', 'hasSuccess-box');
+        break;
+      case email:
+        postEmailChecker(email, 'hasError-box', 'hasSuccess-box');
+        break;
+      case messageText:
+        postFieldChecker(messageText, 'hasError-box', 'hasSuccess-box');
+        break;
+
+      default:
+        break;
+    }
+  });
+}
+
+function ajaxPost(formData) {
+  $.ajax({
+    type: 'POST',
+    url: uploadURL,
+    async: true,
+
+    data: formData,
+
+    dataType: 'json',
+
+    processData: false,
+    contentType: false,
+    cache: false,
+
+    success: function (data) {
+      $(resultMessageId).html('');
+      $(resultMessageId).fadeIn();
+
+      if ($(resultMessageId).hasClass('alert-danger')) {
+        $(resultMessageId).removeClass('alert-danger');
+      }
+
+      $(resultMessageId).removeClass('d-none');
+
+      $(resultMessageId).addClass('alert-success');
+
+      $(resultMessageId).append(
+        '<p class="links--fs-adaptive-2 md-true">Ваше сообщение было успешно отправлено</p>'
+      );
+
+      if (data.status == true) {
+      }
+
+      if (data.msg && data.msg.length > 0) {
+        $.each(data.msg, function (key, field) {
+          if (field.type == true) {
+            console.log('Ответ сервера: ' + field.text);
+          } else {
+            console.log('Ответ сервера: ' + field.text);
+          }
+        });
+      }
+    },
+  });
+}
+
+function uploadData() {
+  $(resultMessageId).html('');
+  err = 0;
+
+  feedback.RefreshBindingData();
+  console.log('feedback.Approval = ' + feedback.Approval);
+
+  if (feedback.Approval != true) {
+    if ($(resultMessageId).hasClass('alert-success')) {
+      $(resultMessageId).removeClass('alert-success');
+    }
+
+    $(resultMessageId).removeClass('d-none');
+    $(resultMessageId).addClass('alert-danger');
+
+    $(resultMessageId).append(
+      '<p class="links--fs-adaptive-2 md-true">Для отправки сообщения требуется согласие на обработку персональных данных</p>'
+    );
+    document.location = resultMessageId;
+    $(resultMessageId).fadeIn();
+    return;
+  }
+
+  console.log('feedback.Approval = ' + feedback.Approval);
+  $(resultMessageId).html('');
+  err = 0;
+
+  postFieldChecker(name, 'hasError-box', 'hasSuccess-box');
+  postFieldChecker(phone, 'hasError-box', 'hasSuccess-box');
+  postEmailChecker(email, 'hasError-box', 'hasSuccess-box');
+  postFieldChecker(messageText, 'hasError-box', 'hasSuccess-box');
+  postSelectChecker(
+    purposeOfTheAppeal,
+    feedback.Purpose.Value,
+    'hasError-box',
+    'hasSuccess-box'
+  );
+  postSelectChecker(
+    subjectOfTheAppeal,
+    feedback.Subject.Value,
+    'hasError-box',
+    'hasSuccess-box'
+  );
+
+  if (err == 0 && errFile == 0) {
+    var form_data = false;
+
+    form_data = new FormData();
+    form_data.append('postName', feedback.Name);
+    form_data.append('postPhone', feedback.Phone);
+    form_data.append('postEmail', feedback.Email);
+    form_data.append('postPurposeValue', feedback.Purpose.Value);
+    form_data.append('postPurposeText', feedback.Purpose.Text);
+    form_data.append('postSubjectValue', feedback.Subject.Value);
+    form_data.append('postSubjectText', feedback.Subject.Text);
+    form_data.append('postIsClient', getBoolRus(feedback.Client));
+    form_data.append(
+      'postAnswerToPhone',
+      getBoolRus(feedback.AnswerTo.OnPhone)
+    );
+    form_data.append(
+      'postAnswerToEmail',
+      getBoolRus(feedback.AnswerTo.OnEmail)
+    );
+    form_data.append(
+      'postAnswerToFace',
+      getBoolRus(feedback.AnswerTo.OnFaceToFace)
+    );
+    form_data.append('postApproval', getBoolRus(feedback.Approval));
+    form_data.append('postMessageText', feedback.Message.Text);
+
+    
+    // var FileStore = document.getElementById('askQuestionDocs');
+
+    // var len = FileStore.files.length;
+    // // console.log("количество загружаемых файлов: " + len);
+    // var reader;
+    // var file;
+
+    // for (var i = 0; i < len; i++) {
+    //   file = FileStore.files[i];
+
+    //   reader = new FileReader();
+    //   reader.readAsDataURL(file);
+
+    //   if (form_data) {
+    //     form_data.append('file[]', file);
+    //   }
+    // }
+
+    getFilesFormData(FileStore.files, form_data);
+
+    $('.askQuestionModal__main-fields').addClass('d-none');
+
+    $(resultMessageId).html('');
+    $(resultMessageId).fadeIn();
+    if ($(resultMessageId).hasClass('alert-danger')) {
+      $(resultMessageId).removeClass('alert-danger');
+    }
+    $(resultMessageId).addClass('alert-success');
+
+    document.location = resultMessageId;
+
+    $(resultMessageId).append(
+      '<p class="links--fs-adaptive-2 md-true">Выполняется отправка сообщения, пожалуйста подождите...<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div></div></p>'
+    );
+
+    ajaxPost(form_data);
+  } else {
+    if ($(resultMessageId).hasClass('alert-success')) {
+      $(resultMessageId).removeClass('alert-success');
+    }
+
+    $(resultMessageId).removeClass('d-none');
+    $(resultMessageId).addClass('alert-danger');
+
+    // $(".md-resp-msg").val();
+    // $(resultMessageId).append('<p class="md-true">Не все поля заполнены</p>');
+    $(resultMessageId).append(
+      '<p class="links--fs-adaptive-2 md-true">Поля помеченные красным заполнены неверно или пусты</p>'
+    );
+    document.location = resultMessageId;
+    $(resultMessageId).fadeIn();
+  }
+}
+
+// отобразить список текущих файлов в файлохранилище на форму
+function viewFileList() {
+  errFile = 0;
+
+  fileNames.length = 0;
+
+  var totalFileSize = 0;
+  // var filedata = document.getElementById('askQuestionDocs');
+  // var filedata = FileStore.files;
+  var len = FileStore.files.length;
+
+  for (var i = 0; i < len; i++) {
+    let tmpName = FileStore.files[i].name;
+    let tmpSize = FileStore.files[i].size;
+    totalFileSize += tmpSize;
+
+    if (tmpSize >= 1024 && tmpSize < 1048576) {
+      tmpSize /= 1024;
+      tmpSize = Math.round(tmpSize);
+      tmpSize += '&nbsp;кб';
+    } else if (tmpSize >= 1048576) {
+      tmpSize /= 1024;
+      tmpSize /= 1024;
+      tmpSize = Math.round(tmpSize * 100) / 100;
+      tmpSize += '&nbsp;мб';
+    } else {
+      tmpSize = Math.round(tmpSize);
+      tmpSize += '&nbsp;б';
+    }
+
+    if (totalFileSize <= MAX_ALL_FILE_SIZE) {
+      fileNames.push(
+        `<li class="pl-1"><div>${tmpName} (<nobr class="blue-text">${tmpSize}</nobr>)<a class="red-text" onclick="removeFile(${i});">[удалить]</a></div></li>`
+      );
+    } else {
+      fileNames.push(
+        `<li class="pl-1"><div>${tmpName} (<nobr class="red-text">${tmpSize}</nobr>)<a class="red-text" onclick="removeFile(${i});">[удалить]</a></div></li>`
+      );
+    }
+  }
+
+  var tmpTotalFileSize = totalFileSize;
+
+  if (tmpTotalFileSize >= 1024 && tmpTotalFileSize < 1048576) {
+    tmpTotalFileSize /= 1024;
+    tmpTotalFileSize = Math.round(tmpTotalFileSize);
+    tmpTotalFileSize += '&nbsp;кб';
+  } else if (tmpTotalFileSize >= 1048576) {
+    tmpTotalFileSize /= 1024;
+    tmpTotalFileSize /= 1024;
+    tmpTotalFileSize = Math.round(tmpTotalFileSize * 100) / 100;
+    tmpTotalFileSize += '&nbsp;мб';
+  } else {
+    tmpTotalFileSize = Math.round(tmpTotalFileSize);
+    tmpTotalFileSize += '&nbsp;б';
+  }
+
+  if (totalFileSize <= MAX_ALL_FILE_SIZE) {
+    $('.ankets__uploadFile').removeClass('hasError-box');
+    $('.ankets__uploadFile').addClass('hasSuccess-box');
+
+    $('.totalFiles').html(
+      `<br><nobr><span>Файлов всего:</span> <span class="blue-text">${len}</span></nobr><br><nobr><span>Общий размер:</span> <span class="blue-text">${tmpTotalFileSize}</span></nobr>`
+    );
+  } else {
+    // err++;
+    errFile++;
+
+    $('.ankets__uploadFile').addClass('hasError-box');
+    $('.ankets__uploadFile').removeClass('hasSuccess-box');
+
+    $('.totalFiles').html(
+      `<br><nobr><span>Файлов всего:</span> <span class="red-text">${len}</span></nobr><br><nobr><span>Общий размер:</span> <span class="red-text">${tmpTotalFileSize}</span></nobr>`
+    );
+  }
+
+  console.clear();
+
+  console.log('fileNames.length = ' + fileNames.length);
+
+  console.log('len = ' + len);
+
+  var html = '<ul class="blue-list">';
+  for (var i = 0; i < fileNames.length; i++) {
+    html += fileNames[i];
+  }
+  html += '</ul>';
+  $('#askQuestionDocs-description').html('');
+
+  $('#askQuestionDocs-description').html(html);
+  $('#askQuestionDocs-description').css('color', '#000');
+  $('#askQuestionDocs-indicator').html(
+    '<img src="/img/_src/ankets/uploadedFile.png" alt="">'
+  );
+}
+
+
+function handleFileListChange() {
+  $('#askQuestionDocs').on('change', function (e) {
+    // если не выбрали файл и нажали отмену, то ничего не делать
+    if (!e.target.files.length) {
+      return;
+    }
+
+    // e.preventDefault();
+
+    // создаем новый массив с файлами
+    const files = Object.keys(e.target.files).map((i) => e.target.files[i]);
+
+    addFiles(files); // добавляем файлы в хранилище
+
+    // очищаем input, т.к. файл сохранён
+    e.target.value = '';
+
+    // отобразить список текущих файлов в файлохранилище на форму
+    viewFileList();
+  });
+}
+
+function addPhoneMask() {
+  var customOptions = {
+    onKeyPress: function (val, e, field, options) {
+      if (val.replace(/\D/g, '').length === 1) {
+        val = val.replace('8', '');
+        field.val(val);
+      }
+      field.mask('+7 (999) 999-99-99', options);
+    },
+    // placeholder: "+7 (___) ___-__-__"
+    placeholder: 'Телефон',
+  };
+
+  $('input[name=askQuestionModalTelNumber]').mask(
+    '+7 (999) 999-99-99',
+    customOptions
+  );
+}
+
+$(document).ready(function () {
+  dataPreloader();
+
+  addPhoneMask();
+
+  handleFileListChange();
+
+  handleEventChangeById(name);
+
+  handleEventChangeById(phone);
+
+  handleEventChangeById(email);
+
+  handleEventChangeById(messageText);
+
+  // $("select[name='askQuestionModalCelObrashenia']").change(function () {
+  //   postSelectChecker(purposeOfTheAppeal, feedback.Purpose.Value, 'hasError-box', 'hasSuccess-box');
+  // });
+
+  // $("select[name='askQuestionModalTemaObrashenia']").change(function () {
+  //   postSelectChecker(subjectOfTheAppeal, feedback.Subject.Value, 'hasError-box', 'hasSuccess-box');
+  // });
+
+  handleBtnSendClick();
+
+  handleCheckboxChange();
+
+  // feedback.Name = 'text';
+  // feedback.Message.Text = 'text message';
+  // var text = '1234567';
+  // feedback.SetMessageText(text);
+
+  // console.log('feedback.id = ' + feedback.Id);
+  // console.log('feedback.Name = ' + feedback.Name);
+  // console.log('feedback.Message.Text = ' + feedback.Message.Text);
+
+  // $(purposeOfTheAppeal).ddslick({
+  //   onSelected: function (data) {
+  //       feedback.Purpose.Text = selectedData.value;
+  //   },
+  // });
+
+  // feedback.Purpose.Text = $(purposeOfTheAppeal).ddslick('value');
+});

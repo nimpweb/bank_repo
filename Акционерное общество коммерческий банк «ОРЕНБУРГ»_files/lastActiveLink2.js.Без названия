@@ -1,0 +1,67 @@
+let lastActiveLinkAskQuestion = '#link-checkboxes__navAskQuestion';
+let lastActiveLocationAskQuestion = '#link-orenburg__navAskQuestion';
+
+$('.link-orenburgAskQuestion').click((elem) => {
+  $(lastActiveLocationAskQuestion).removeClass('active');
+
+  const visibleBlockClassName = $(`#${elem.target.id}`).attr('class');
+  $(`#${visibleBlockClassName}`).removeClass('d-none');
+
+  if (lastActiveLocationAskQuestion !== `#${elem.target.id}`)
+    $(
+      lastActiveLocationAskQuestion.substring(
+        0,
+        lastActiveLocationAskQuestion.length - 5
+      )
+    ).addClass('d-none');
+
+  lastActiveLocationAskQuestion = `#${elem.target.id}`;
+});
+
+$('.offices-intro__navAskQuestionModal div').click((elem) => {
+  $(lastActiveLocationAskQuestion).removeClass('active');
+
+  const visibleBlockClassName = $(`#${elem.target.id}`).attr('class');
+  $(`#${visibleBlockClassName}`).removeClass('d-none');
+
+  $('#activeLocationAskQuestionModal').html($(`#${elem.target.id}`).html());
+  $('#askQuestionModal #ac-10').prop('checked', false);
+  $(
+    '#askQuestionModal.ankets .askQuestionModal__main .askQuestionModal__main-wrapper .askQuestionModal__main-left'
+  ).removeClass('mt-0');
+
+  if (lastActiveLocationAskQuestion !== `#${elem.target.id}`)
+    $(
+      lastActiveLocationAskQuestion.substring(
+        0,
+        lastActiveLocationAskQuestion.length - 5
+      )
+    ).addClass('d-none');
+
+  lastActiveLocationAskQuestion = `#${elem.target.id}`;
+});
+
+$('#askQuestionModal #ac-10').on('click', function () {
+  if ($(this).is(':checked'))
+    $(
+      '#askQuestionModal.ankets .askQuestionModal__main .askQuestionModal__main-wrapper .askQuestionModal__main-left'
+    ).addClass('mt-0');
+  else
+    $(
+      '#askQuestionModal.ankets .askQuestionModal__main .askQuestionModal__main-wrapper .askQuestionModal__main-left'
+    ).removeClass('mt-0');
+});
+
+// let fileNames = [];
+
+// $('#askQuestionDocs').on('change', function () {
+//   for (let i = 0; i < $(this)[0].files.length; i++) {
+//     fileNames.push(`<div>${$(this)[0].files[i].name}</div>`);
+//   }
+
+//   $('#askQuestionDocs-description').html(fileNames);
+//   $('#askQuestionDocs-description').css('color', '#000');
+//   $('#askQuestionDocs-indicator').html(
+//     `<img src="/img/_src/ankets/uploadedFile.png" alt="">`
+//   );
+// });
